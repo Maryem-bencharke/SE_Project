@@ -1,9 +1,9 @@
 # Hospital Patient Archive Management Platform Use Case Diagram
 ![usecase diagram](usecasediagram.jpg)
 ## Actors:
-- **Doctor:** 
-- **Nurse:** 
-- **Administrator:**
+- **Doctor** 
+- **Nurse** 
+- **Administrator**
 
 ## Use Cases:
 - **View Patient Record Management:** Both doctors and nurses can view patient records.
