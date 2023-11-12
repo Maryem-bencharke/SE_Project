@@ -1,0 +1,65 @@
+@startuml
+left to right direction
+
+actor "Doctor" as Doctor
+actor "Nurse" as Nurse
+actor "Administrator" as Administrator
+rectangle "Hospital Patient Archive Management Platform" {
+    usecase "View Patient Record Management" as ViewRecords
+    usecase "Search Patient Records" as SearchRecords
+    usecase "Create Patient Record" as CreateRecord
+    usecase "Update Patient Record" as UpdateRecord
+    usecase "Attach Medical Images" as AttachImages
+    usecase "Send Patient Records" as SendRecord
+    usecase "Record Treatments" as RecordTreatments
+    usecase "Create new role" as CreateRole
+    usecase "Delete role" as DeleteRole
+    usecase "Manage Appointment " as AppointmentManagement
+    usecase "Add appointment" as AddAppointment
+    usecase "Rescheduling" as Rescheduling
+    usecase "Canceling appointment" as CancelingAppointment
+    usecase "Verify insurance information" as VerifyInsurance
+    usecase "Generate Reports" as GenerateReports
+    usecase "Login" as Login
+    usecase "Authentication" as Authentication
+    usecase "Login" as Login
+    usecase "Password Recovery" as PasswordRecovery
+
+}
+
+Nurse --> CreateRecord
+
+Nurse --> AppointmentManagement
+
+AppointmentManagement <-- AddAppointment 
+AppointmentManagement <-- CancelingAppointment 
+AppointmentManagement <-- Rescheduling  
+
+Nurse -->  VerifyInsurance
+
+Doctor --> SearchRecords
+Nurse --> SearchRecords
+
+Doctor --> UpdateRecord
+Nurse --> UpdateRecord
+
+Doctor --> ViewRecords
+Nurse --> ViewRecords
+
+UpdateRecord <.. AttachImages : <<extends>>
+UpdateRecord <.. RecordTreatments: <<extends>>
+
+Nurse --> SendRecord
+Administrator --> GenerateReports
+
+Nurse --> Authentication
+Doctor --> Authentication
+Administrator --> Authentication
+
+Authentication ..> Login : <<includes>>
+Authentication <.. PasswordRecovery:  <<extends>>
+
+Administrator --> CreateRole
+Administrator --> DeleteRole
+
+@enduml
