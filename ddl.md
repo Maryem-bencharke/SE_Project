@@ -21,7 +21,7 @@ CREATE TABLE Patient (
     UNIQUE (FirstName, LastName, BirthDate)
 );
 
--- Create MedicalRecord Table
+-- Create MedicalRecord Table with Image Data
 CREATE TABLE MedicalRecord (
     RecordID INT PRIMARY KEY,
     PatientID INT,
@@ -31,27 +31,12 @@ CREATE TABLE MedicalRecord (
     MedicalHistory TEXT,
     TreatmentPlan TEXT,
     TestResults TEXT,
+    ImageData BLOB, 
     FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
     FOREIGN KEY (DoctorID) REFERENCES User(UserID),
     FOREIGN KEY (NurseID) REFERENCES User(UserID)
 );
 
--- Create MedicalImage Table
-CREATE TABLE MedicalImage (
-    ImageID INT PRIMARY KEY,
-    RecordID INT,
-    ImageData BLOB,
-    FOREIGN KEY (RecordID) REFERENCES MedicalRecord(RecordID)
-);
-
--- Create ActionLog Table for Audit Trail
-CREATE TABLE ActionLog (
-    LogID INT PRIMARY KEY,
-    UserID INT,
-    ActionTimestamp TIMESTAMP,
-    ActionDescription VARCHAR(255),
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
-);
 
 -- Create Appointment Table
 CREATE TABLE Appointment (
