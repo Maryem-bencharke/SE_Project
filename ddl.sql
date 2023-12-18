@@ -4,7 +4,7 @@ CREATE DATABASE Hospital
 
 -- Create Nurse Table
 CREATE TABLE Nurse (
-    NurseID INT PRIMARY KEY,
+    NurseID INT PRIMARY K
     Username VARCHAR(50) UNIQUE NOT NULL,
     Password VARCHAR(100) NOT NULL,
 );
