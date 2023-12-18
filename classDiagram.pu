@@ -1,0 +1,70 @@
+@startuml
+
+title Classes - Hospital Patient Archive Management
+
+abstract User {
+  - Int UserID
+  - string name
+  - string Password 
+}
+
+class Doctor {
+  searchPatient()
+  UpdatePatient()
+}
+
+class Nurse {
+  searchPatient()
+  UpdatePatient()
+  createPatient()
+  addAppointments()
+  cancelAppointments()
+  verifyInsurance()
+}
+
+User <|-- Doctor 
+User <|-- Nurse
+User <|-- Administrator
+
+class Administrator {
+  createDoctor()
+  createNurse()
+  deleteDoctor()
+  deleteNurse()
+}
+
+class Patient {
+  - int patientID
+  - datetime birthDate
+  - string firstName
+  - string lastName
+  - string insuranceInfo
+}
+
+class Appointment {
+  -int appointmentId
+  -datetime appointmentDate
+  -status appointmentStatus
+}
+
+enum status {
+  confirmed
+  canceled
+}
+
+class MedicalRecord {
+  - int recordId
+  - datetime dateCreated
+  - string treatmentPlan
+  - string testResults
+  - blob imageData
+}
+
+MedicalRecord "0..*" - "1" Nurse
+Patient "1" - "0..*" Appointment
+Patient "1" o-- "0..*" MedicalRecord
+Appointment "0..*" - "1" Nurse
+MedicalRecord "0..*" - "1" Doctor
+Appointment "0..*" - "1" Doctor
+
+@enduml

@@ -16,7 +16,6 @@
 - **Manage Appointment:** Overall category for appointment-related use cases.
 - **Rescheduling , Adding and Canceling appointment:** Sub-use cases of managing appointments.
 - **Verify insurance information:** Nurses verify patient insurance information.
-- **Generate Reports:** Administrators generate reports.
 - **Login and Authentication:** All actors (Doctor, Nurse, Administrator) must go through authentication, which includes the use case "Login." Password recovery is an extension of the authentication process in case they forgot their password.
 
 ## Interactions:
