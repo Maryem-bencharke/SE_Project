@@ -2,14 +2,26 @@ CREATE DATABASE Hospital
 
 
 
--- Create User Table
-CREATE TABLE User (
-    UserID INT PRIMARY KEY,
+-- Create Nurse Table
+CREATE TABLE Nurse (
+    NurseID INT PRIMARY KEY,
     Username VARCHAR(50) UNIQUE NOT NULL,
     Password VARCHAR(100) NOT NULL,
-    Role VARCHAR(20) NOT NULL
 );
+-- Create Doctor Table
 
+CREATE TABLE Doctor (
+    DoctorID INT PRIMARY KEY,
+    Username VARCHAR(50) UNIQUE NOT NULL,
+    Password VARCHAR(100) NOT NULL,
+);
+-- Create Admin Table
+
+CREATE TABLE Administrator (
+    AdminID INT PRIMARY KEY,
+    Username VARCHAR(50) UNIQUE NOT NULL,
+    Password VARCHAR(100) NOT NULL,
+);
 -- Create Patient Table
 CREATE TABLE Patient (
     PatientID INT PRIMARY KEY,
@@ -33,8 +45,8 @@ CREATE TABLE MedicalRecord (
     TestResults TEXT,
     ImageData BLOB, 
     FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
-    FOREIGN KEY (DoctorID) REFERENCES User(UserID),
-    FOREIGN KEY (NurseID) REFERENCES User(UserID)
+    FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID),
+    FOREIGN KEY (NurseID) REFERENCES Nurse(NurseID)
 );
 
 
@@ -47,16 +59,7 @@ CREATE TABLE Appointment (
     AppointmentDate DATETIME,
     Status VARCHAR(20),
     FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
-    FOREIGN KEY (DoctorID) REFERENCES User(UserID),
-    FOREIGN KEY (NurseID) REFERENCES User(UserID)
+    FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID),
+    FOREIGN KEY (NurseID) REFERENCES Nurse(NurseID)
 );
 
--- Create Report Table
-CREATE TABLE Report (
-    ReportID INT PRIMARY KEY,
-    ReportType VARCHAR(50),
-    Content TEXT,
-    DateGenerated DATE,
-    UserID INT,
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
-);
