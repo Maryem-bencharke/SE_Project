@@ -1,7 +1,5 @@
 CREATE DATABASE Hospital
 
-
-
 -- Create User Table
 CREATE TABLE User (
     UserID INT PRIMARY KEY,
