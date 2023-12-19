@@ -40,7 +40,7 @@ CREATE TABLE MedicalRecord (
     DoctorID INT,
     NurseID INT,
     DateCreated DATE,
-    MedicalHistory TEXT,
+    Record TEXT,
     TreatmentPlan TEXT,
     TestResults TEXT,
     ImageData BLOB, 
