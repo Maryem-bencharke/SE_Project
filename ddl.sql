@@ -1,13 +1,15 @@
-CREATE DATABASE Hospital
+CREATE DATABASE Hospital;
+USE Hospital;
+
 -- Create Nurse Table
 CREATE TABLE Nurse (
-    NurseID INT PRIMARY K
+    NurseID INT PRIMARY KEY,
     Username VARCHAR(50) UNIQUE NOT NULL,
     Password VARCHAR(100) NOT NULL,
     Email VARCHAR(50),
     PhoneNumber VARCHAR(20),
     Address VARCHAR(100),
-    CIN VARCHAR(20),
+    CIN VARCHAR(20)
 );
 -- Create Doctor Table
 
@@ -76,7 +78,7 @@ CREATE TABLE Appointment (
     PatientID INT,
     DoctorID INT,
     NurseID INT,
-    AppointmentDate DATETIME,
+    AppointmentDate DATE,
     Status VARCHAR(20),
     FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
     FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID),
