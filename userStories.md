@@ -32,10 +32,6 @@
 
 - As an **administrator**, I want to ensure that the platform **complies with healthcare regulations and standards**.
 
-## Reporting and Analysis:
-
-- As an **administrator**, I want to **generate reports** on patient demographics, diagnoses, treatments, and outcomes for analysis.
-
 ## User Interface and Experience:
 
 - As a **user**, I want the **user interface to be intuitive and user-friendly** for easy navigation.

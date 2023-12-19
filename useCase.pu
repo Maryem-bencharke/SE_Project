@@ -19,9 +19,6 @@ rectangle "Hospital Patient Archive Management Platform" {
     usecase "Rescheduling" as Rescheduling
     usecase "Canceling appointment" as CancelingAppointment
     usecase "Verify insurance information" as VerifyInsurance
-    usecase "Generate Reports" as GenerateReports
-    usecase "Login" as Login
-    usecase "Authentication" as Authentication
     usecase "Login" as Login
     usecase "Password Recovery" as PasswordRecovery
 
@@ -50,14 +47,12 @@ UpdateRecord <.. AttachImages : <<extends>>
 UpdateRecord <.. RecordTreatments: <<extends>>
 
 Nurse --> SendRecord
-Administrator --> GenerateReports
 
-Nurse --> Authentication
-Doctor --> Authentication
-Administrator --> Authentication
+Nurse --> Login
+Doctor --> Login
+Administrator --> Login
 
-Authentication ..> Login : <<includes>>
-Authentication <.. PasswordRecovery:  <<extends>>
+Login <.. PasswordRecovery:  <<extends>>
 
 Administrator --> CreateRole
 Administrator --> DeleteRole

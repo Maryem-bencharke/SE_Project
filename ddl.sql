@@ -1,12 +1,13 @@
 CREATE DATABASE Hospital
-
-
-
 -- Create Nurse Table
 CREATE TABLE Nurse (
     NurseID INT PRIMARY K
     Username VARCHAR(50) UNIQUE NOT NULL,
     Password VARCHAR(100) NOT NULL,
+    Email VARCHAR(50),
+    PhoneNumber VARCHAR(20),
+    Address VARCHAR(100),
+    CIN VARCHAR(20),
 );
 -- Create Doctor Table
 
@@ -14,6 +15,10 @@ CREATE TABLE Doctor (
     DoctorID INT PRIMARY KEY,
     Username VARCHAR(50) UNIQUE NOT NULL,
     Password VARCHAR(100) NOT NULL,
+    Email VARCHAR(50),
+    PhoneNumber VARCHAR(20),
+    Address VARCHAR(100),
+    CIN VARCHAR(20)
 );
 -- Create Admin Table
 
@@ -21,6 +26,10 @@ CREATE TABLE Administrator (
     AdminID INT PRIMARY KEY,
     Username VARCHAR(50) UNIQUE NOT NULL,
     Password VARCHAR(100) NOT NULL,
+    Email VARCHAR(50),
+    PhoneNumber VARCHAR(20),
+    Address VARCHAR(100),
+    CIN VARCHAR(20)
 );
 -- Create Patient Table
 CREATE TABLE Patient (
@@ -28,9 +37,20 @@ CREATE TABLE Patient (
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     BirthDate DATE,
-    Gender VARCHAR(10),
+    Gender ENUM('F', 'M'),
+    BloodGroup ENUM('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'),
+    PhoneNumber VARCHAR(20),
+    Address VARCHAR(100),
+    Email VARCHAR(50),
+    CIN VARCHAR(20),
     InsuranceInfo VARCHAR(100),
-    UNIQUE (FirstName, LastName, BirthDate)
+    emergencyContactName VARCHAR(100),
+    emergencyContactPhone VARCHAR(20),
+    emergencyContactAddress VARCHAR(100),
+    emergencyContactEmail VARCHAR(50),
+    emergencyContactRelation VARCHAR(50),
+    emergencyContactBloodGroup ENUM('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'),
+    emergencyContactCIN VARCHAR(20)
 );
 
 -- Create MedicalRecord Table with Image Data

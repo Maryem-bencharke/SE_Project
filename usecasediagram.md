@@ -21,5 +21,5 @@
 ## Interactions:
 - **Nurse interactions:** Nurses are involved in creating , updating and viewing patient records, managing appointments, and verifying insurance.
 - **Doctor interactions:** Doctors can search, update, and view patient records.
-- **Administrator interactions:** Administrators manage roles, create/delete roles, and generate reports.
+- **Administrator interactions:** Administrators manage roles and create/delete roles.
 

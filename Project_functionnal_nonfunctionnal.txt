@@ -32,9 +32,6 @@ Notifications and Alerts:
 Ability to send notifications and alerts to healthcare providers for critical updates or appointments.
 Reporting and Analytics:
 
-Generate reports on patient demographics, diagnoses, treatments, and outcomes.
-Provide insights to improve hospital operations.
-
 Scalability:
 
 Design the platform to handle a growing volume of patient data.

@@ -6,8 +6,15 @@ abstract User {
   - Int UserID
   - string name
   - string Password 
+  - string email
+  - string address
+  - string phoneNumber
+  - string CIN
 }
-
+enum Gender{
+  F
+  M
+}
 class Doctor {
   searchPatient()
   UpdatePatient()
@@ -35,12 +42,34 @@ class Administrator {
 
 class Patient {
   - int patientID
+  - strind CIN
   - datetime birthDate
   - string firstName
   - string lastName
   - string insuranceInfo
+  - string address
+  - string phoneNumber
+  - string email
+  - string emergencyContact
+  - BloodGroup bloodGroup
+  - string allergies
+  - string emergencyContactName
+  - string emergencyContactPhone
+  - string emergencyContactEmail
+  - string emergencyContactAddress
+  - string emergencyContactRelation
+  - BloodGroup emergencyContactBloodGroup
 }
-
+enum BloodGroup {
+  A+
+  A-
+  B+
+  B-
+  AB+
+  AB-
+  O+
+  O-
+}
 class Appointment {
   -int appointmentId
   -datetime appointmentDate
