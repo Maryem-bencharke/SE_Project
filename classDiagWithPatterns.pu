@@ -88,58 +88,70 @@ class MedicalRecord {
   - blob imageData
 }
 
-' DAO Classes with Singleton Pattern
-class PatientDAO {
-  - static PatientDAO instance
-  + static getInstance()
+' DAO Interfaces and Implementations
+interface PatientDAO {
   createPatient()
   findPatient()
   updatePatient()
   deletePatient()
 }
 
-class DoctorDAO {
-  - static DoctorDAO instance
-  + static getInstance()
+class PatientDAOImpl implements PatientDAO {
+  // Implementation of PatientDAO methods
+}
+
+interface DoctorDAO {
   createDoctor()
   findDoctor()
   updateDoctor()
   deleteDoctor()
 }
 
-class NurseDAO {
-  - static NurseDAO instance
-  + static getInstance()
+class DoctorDAOImpl implements DoctorDAO {
+  // Implementation of DoctorDAO methods
+}
+
+interface NurseDAO {
   createNurse()
   findNurse()
   updateNurse()
   deleteNurse()
 }
 
-class AdministratorDAO {
-  - static AdministratorDAO instance
-  + static getInstance()
+class NurseDAOImpl implements NurseDAO {
+  // Implementation of NurseDAO methods
+}
+
+interface AdministratorDAO {
   createAdministrator()
   updateAdministrator()
   deleteAdministrator()
 }
 
-class AppointmentDAO {
-  - static AppointmentDAO instance
-  + static getInstance()
+class AdministratorDAOImpl implements AdministratorDAO {
+  // Implementation of AdministratorDAO methods
+}
+
+interface AppointmentDAO {
   createAppointment()
   readAppointment()
   updateAppointment()
   deleteAppointment()
 }
 
-class MedicalRecordDAO {
-  - static MedicalRecordDAO instance
-  + static getInstance()
+class AppointmentDAOImpl implements AppointmentDAO {
+  // Implementation of AppointmentDAO methods
+}
+
+interface MedicalRecordDAO {
   createMedicalRecord()
   readMedicalRecord()
   updateMedicalRecord()
   deleteMedicalRecord()
+}
+
+class MedicalRecordDAOImpl implements MedicalRecordDAO {
+  // Implementation of MedicalRecordDAO methods
 }
 
 ' Relationships
@@ -153,12 +165,20 @@ Appointment "0..*" - "1" Nurse
 MedicalRecord "0..*" - "1" Doctor
 Appointment "0..*" - "1" Doctor
 
-' DAO Relationships
+' DAO Relationships with Classes
 Patient -- PatientDAO
 Doctor -- DoctorDAO
 Nurse -- NurseDAO
 Administrator -- AdministratorDAO
 Appointment -- AppointmentDAO
 MedicalRecord -- MedicalRecordDAO
+
+' DAO Implementations
+PatientDAO ..> PatientDAOImpl
+DoctorDAO ..> DoctorDAOImpl
+NurseDAO ..> NurseDAOImpl
+AdministratorDAO ..> AdministratorDAOImpl
+AppointmentDAO ..> AppointmentDAOImpl
+MedicalRecordDAO ..> MedicalRecordDAOImpl
 
 @enduml
