@@ -235,7 +235,7 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
     }
 }
 //test 
-$patient = new Patient(1, "12345678", "1999-01-01", "Mohamed", "Ben Ali", "mohamed@gmail", "12345678", 'A_Plus', "Tunis", "12345678", "12345678", "none", "Mohamed", "12345678", "mohamed@gmail", "Tunis", "Father", 'A_Plus');
+$patient = new Patient(1, "12345678", "1999-01-01", "Mohamed", "Ben Ali", "mohamed@gmail.com", "12345678", 'A_Plus', "Maroc", "12345678", "12345678", "none", "Mohamed", "12345678", "mohamed@gmail.com", "Maroc", "Father", 'A_Plus');
 $patientDAO = new PatientDAOImpl();
 $patientDAO->addPatient($patient);
 
