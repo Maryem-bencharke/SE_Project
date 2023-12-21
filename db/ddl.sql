@@ -9,7 +9,7 @@ CREATE TABLE Nurse (
     Email VARCHAR(50),
     PhoneNumber VARCHAR(20),
     Address VARCHAR(100),
-    CIN VARCHAR(20)
+    CIN VARCHAR(20) UNIQUE NOT NULL
 );
 -- Create Doctor Table
 
@@ -20,7 +20,7 @@ CREATE TABLE Doctor (
     Email VARCHAR(50),
     PhoneNumber VARCHAR(20),
     Address VARCHAR(100),
-    CIN VARCHAR(20)
+    CIN VARCHAR(20)  UNIQUE NOT NULL
 );
 -- Create Admin Table
 
@@ -31,7 +31,7 @@ CREATE TABLE Administrator (
     Email VARCHAR(50),
     PhoneNumber VARCHAR(20),
     Address VARCHAR(100),
-    CIN VARCHAR(20)
+    CIN VARCHAR(20)  UNIQUE NOT NULL
 );
 -- Create Patient Table
 CREATE TABLE Patient (
@@ -43,8 +43,9 @@ CREATE TABLE Patient (
     BloodGroup ENUM('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'),
     PhoneNumber VARCHAR(20),
     Address VARCHAR(100),
+    Allergies VARCHAR(250),
     Email VARCHAR(50),
-    CIN VARCHAR(20),
+    CIN VARCHAR(20) UNIQUE,
     InsuranceInfo VARCHAR(100),
     emergencyContactName VARCHAR(100),
     emergencyContactPhone VARCHAR(20),
