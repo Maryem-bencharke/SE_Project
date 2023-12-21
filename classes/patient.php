@@ -153,7 +153,7 @@ class Patient{
     }
 
 }
- 
+
 interface PatientDAO{
     public function addPatient($patient);
     public function updatePatient($patient);
@@ -182,27 +182,27 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
                 $emergencyContactRelation = $patient->getEmergencyContactRelation();
                 $emergencyContactBloodGroup = $patient->getEmergencyContactBloodGroup();
                 try{
-                $sql = "INSERT INTO patient (CIN, BirthDate, FirstName, LastName, Email, PhoneNumber, BloodGroup, Address, Allergies, EmergencyContactName, EmergencyContactPhone, EmergencyContactEmail, EmergencyContactAddress, EmergencyContactRelation, EmergencyContactBloodGroup) VALUES (:CIN, :BirthDate, :FirstName, :LastName, :Email, :Phone, :BloodGroup, :Address, :Allergies, :EmergencyContactName, :EmergencyContactPhone, :EmergencyContactEmail, :EmergencyContactAddress, :EmergencyContactRelation, :EmergencyContactBloodGroup)";
-                $stmt = $this->_connection->prepare($sql);
-                //$stmt = Db::getInstance();
-                //$stmt = $stmt->getConnection();
-                //$stmt = $stmt->prepare($sql);
-                $stmt->bindParam(":CIN", $CIN, PDO::PARAM_STR);
-                $stmt->bindParam(":BirthDate", $birthDate, PDO::PARAM_STR);
-                $stmt->bindParam(":FirstName", $firstName, PDO::PARAM_STR);
-                $stmt->bindParam(":LastName", $lastName, PDO::PARAM_STR);
-                $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
-                $stmt->bindParam(":Phone", $phone, PDO::PARAM_STR);
-                $stmt->bindParam(":BloodGroup", $bloodGroup, PDO::PARAM_STR);
-                $stmt->bindParam(":Address", $address, PDO::PARAM_STR);
-                $stmt->bindParam(":Allergies", $allergies, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactName", $emergencyContactName, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactPhone", $emergencyContactPhone, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactEmail", $emergencyContactEmail, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactAddress", $emergencyContactAddress, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactRelation", $emergencyContactRelation, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactBloodGroup", $emergencyContactBloodGroup, PDO::PARAM_STR);
-                $stmt->execute();
+                    $sql = "INSERT INTO patient (CIN, BirthDate, FirstName, LastName, Email, PhoneNumber, BloodGroup, Address, Allergies, EmergencyContactName, EmergencyContactPhone, EmergencyContactEmail, EmergencyContactAddress, EmergencyContactRelation, EmergencyContactBloodGroup) VALUES (:CIN, :BirthDate, :FirstName, :LastName, :Email, :Phone, :BloodGroup, :Address, :Allergies, :EmergencyContactName, :EmergencyContactPhone, :EmergencyContactEmail, :EmergencyContactAddress, :EmergencyContactRelation, :EmergencyContactBloodGroup)";
+                    $stmt = $this->_connection->prepare($sql);
+                    //$stmt = Db::getInstance();
+                    //$stmt = $stmt->getConnection();
+                    //$stmt = $stmt->prepare($sql);
+                    $stmt->bindParam(":CIN", $CIN, PDO::PARAM_STR);
+                    $stmt->bindParam(":BirthDate", $birthDate, PDO::PARAM_STR);
+                    $stmt->bindParam(":FirstName", $firstName, PDO::PARAM_STR);
+                    $stmt->bindParam(":LastName", $lastName, PDO::PARAM_STR);
+                    $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
+                    $stmt->bindParam(":Phone", $phone, PDO::PARAM_STR);
+                    $stmt->bindParam(":BloodGroup", $bloodGroup, PDO::PARAM_STR);
+                    $stmt->bindParam(":Address", $address, PDO::PARAM_STR);
+                    $stmt->bindParam(":Allergies", $allergies, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactName", $emergencyContactName, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactPhone", $emergencyContactPhone, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactEmail", $emergencyContactEmail, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactAddress", $emergencyContactAddress, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactRelation", $emergencyContactRelation, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactBloodGroup", $emergencyContactBloodGroup, PDO::PARAM_STR);
+                    $stmt->execute();
                 }
                 catch(PDOException $e){
                     echo $e->getMessage();
@@ -216,7 +216,7 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
             throw new Exception("Not an instance of Patient");
         }
     }
-    
+
     public function updatePatient($patient){
         if ($patient instanceof Patient){
             try{
@@ -239,24 +239,25 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
                 $emergencyContactRelation = $patient->getEmergencyContactRelation();
                 $emergencyContactBloodGroup = $patient->getEmergencyContactBloodGroup();
                 try{
-                $sql = "UPDATE patient SET CIN=:CIN, BirthDate=:BirthDate, FirstName=:FirstName, LastName=:LastName, Email=:Email, PhoneNumber=:Phone, BloodGroup=:BloodGroup, Address=:Address, Allergies=:Allergies, EmergencyContactName=:EmergencyContactName, EmergencyContactPhone=:EmergencyContactPhone, EmergencyContactEmail=:EmergencyContactEmail, EmergencyContactAddress=:EmergencyContactAddress, EmergencyContactRelation=:EmergencyContactRelation, EmergencyContactBloodGroup=:EmergencyContactBloodGroup WHERE PatientID=:PatientID";
-                $stmt = $this->_connection->prepare($sql);
-                $stmt->bindParam(":CIN", $CIN, PDO::PARAM_STR);
-                $stmt->bindParam(":BirthDate", $birthDate, PDO::PARAM_STR);
-                $stmt->bindParam(":FirstName", $firstName, PDO::PARAM_STR);
-                $stmt->bindParam(":LastName", $lastName, PDO::PARAM_STR);
-                $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
-                $stmt->bindParam(":Phone", $phone, PDO::PARAM_STR);
-                $stmt->bindParam(":BloodGroup", $bloodGroup, PDO::PARAM_STR);
-                $stmt->bindParam(":Address", $address, PDO::PARAM_STR);
-                $stmt->bindParam(":Allergies", $allergies, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactName", $emergencyContactName, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactPhone", $emergencyContactPhone, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactEmail", $emergencyContactEmail, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactAddress", $emergencyContactAddress, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactRelation", $emergencyContactRelation, PDO::PARAM_STR);
-                $stmt->bindParam(":EmergencyContactBloodGroup", $emergencyContactBloodGroup, PDO::PARAM_STR);
-                $stmt->execute();
+                    $sql = "UPDATE patient SET CIN=:CIN, BirthDate=:BirthDate, FirstName=:FirstName, LastName=:LastName, Email=:Email, PhoneNumber=:Phone, BloodGroup=:BloodGroup, Address=:Address, Allergies=:Allergies, EmergencyContactName=:EmergencyContactName, EmergencyContactPhone=:EmergencyContactPhone, EmergencyContactEmail=:EmergencyContactEmail, EmergencyContactAddress=:EmergencyContactAddress, EmergencyContactRelation=:EmergencyContactRelation, EmergencyContactBloodGroup=:EmergencyContactBloodGroup WHERE PatientID=:PatientID";
+                    $stmt = $this->_connection->prepare($sql);
+                    $stmt->bindParam(":CIN", $CIN, PDO::PARAM_STR);
+                    $stmt->bindParam(":BirthDate", $birthDate, PDO::PARAM_STR);
+                    $stmt->bindParam(":FirstName", $firstName, PDO::PARAM_STR);
+                    $stmt->bindParam(":LastName", $lastName, PDO::PARAM_STR);
+                    $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
+                    $stmt->bindParam(":Phone", $phone, PDO::PARAM_STR);
+                    $stmt->bindParam(":BloodGroup", $bloodGroup, PDO::PARAM_STR);
+                    $stmt->bindParam(":Address", $address, PDO::PARAM_STR);
+                    $stmt->bindParam(":Allergies", $allergies, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactName", $emergencyContactName, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactPhone", $emergencyContactPhone, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactEmail", $emergencyContactEmail, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactAddress", $emergencyContactAddress, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactRelation", $emergencyContactRelation, PDO::PARAM_STR);
+                    $stmt->bindParam(":EmergencyContactBloodGroup", $emergencyContactBloodGroup, PDO::PARAM_STR);
+                    $stmt->bindParam(":PatientID", $patientID, PDO::PARAM_INT);
+                    $stmt->execute();
                 }
                 catch(PDOException $e){
                     echo $e->getMessage();
@@ -270,17 +271,17 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
             throw new Exception("Not an instance of Patient");
         }
     }
-    
+
     public function deletePatient($patient){
     }
-    
+
     public function getPatient($patientID){
     }
-    
+
     public function getPatients(){
     }
 }
-//test 
+//test
 $patient = new Patient(11, "12345678", "1999-01-01", "Mohamed", "Ben Ali", "mohamed@gmail.com", "12345678", 'A_Plus', "Maroc", "12345678", "12345678", "none", "Mohamed", "12345678", "mohamed@gmail.com", "Maroc", "Father", 'A_Plus');
 $patientDAO = new PatientDAOImpl();
 $patientDAO->addPatient($patient);
