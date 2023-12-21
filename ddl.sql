@@ -3,7 +3,7 @@ USE Hospital;
 
 -- Create Nurse Table
 CREATE TABLE Nurse (
-    NurseID INT PRIMARY KEY,
+    NurseID INT PRIMARY KEY AUTO_INCREMENT,
     Username VARCHAR(50) UNIQUE NOT NULL,
     Password VARCHAR(100) NOT NULL,
     Email VARCHAR(50),
@@ -14,7 +14,7 @@ CREATE TABLE Nurse (
 -- Create Doctor Table
 
 CREATE TABLE Doctor (
-    DoctorID INT PRIMARY KEY,
+    DoctorID INT PRIMARY KEY AUTO_INCREMENT,
     Username VARCHAR(50) UNIQUE NOT NULL,
     Password VARCHAR(100) NOT NULL,
     Email VARCHAR(50),
@@ -25,7 +25,7 @@ CREATE TABLE Doctor (
 -- Create Admin Table
 
 CREATE TABLE Administrator (
-    AdminID INT PRIMARY KEY,
+    AdminID INT PRIMARY KEY AUTO_INCREMENT,
     Username VARCHAR(50) UNIQUE NOT NULL,
     Password VARCHAR(100) NOT NULL,
     Email VARCHAR(50),
@@ -35,7 +35,7 @@ CREATE TABLE Administrator (
 );
 -- Create Patient Table
 CREATE TABLE Patient (
-    PatientID INT PRIMARY KEY,
+    PatientID INT PRIMARY KEY AUTO_INCREMENT,
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     BirthDate DATE,
@@ -57,7 +57,7 @@ CREATE TABLE Patient (
 
 -- Create MedicalRecord Table with Image Data
 CREATE TABLE MedicalRecord (
-    RecordID INT PRIMARY KEY,
+    RecordID INT PRIMARY KEY AUTO_INCREMENT,
     PatientID INT,
     DoctorID INT,
     NurseID INT,
@@ -74,7 +74,7 @@ CREATE TABLE MedicalRecord (
 
 -- Create Appointment Table
 CREATE TABLE Appointment (
-    AppointmentID INT PRIMARY KEY,
+    AppointmentID INT PRIMARY KEY AUTO_INCREMENT,
     PatientID INT,
     DoctorID INT,
     NurseID INT,
