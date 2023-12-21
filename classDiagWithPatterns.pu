@@ -1,0 +1,164 @@
+@startuml
+title Classes - Hospital Patient Archive Management
+
+abstract class User {
+  - Int UserID
+  - string name
+  - string Password 
+  - string email
+  - string address
+  - string phoneNumber
+  - string CIN
+}
+
+enum Gender {
+  F
+  M
+}
+
+class Doctor {
+  searchPatient()
+  updatePatient()
+}
+
+class Nurse {
+  searchPatient()
+  updatePatient()
+  createPatient()
+  addAppointments()
+  cancelAppointments()
+  verifyInsurance()
+}
+
+class Administrator {
+  createDoctor()
+  createNurse()
+  deleteDoctor()
+  deleteNurse()
+}
+
+class Patient {
+  - int patientID
+  - string CIN
+  - datetime birthDate
+  - string firstName
+  - string lastName
+  - string insuranceInfo
+  - string address
+  - string phoneNumber
+  - string email
+  - string emergencyContact
+  - BloodGroup bloodGroup
+  - string allergies
+  - string emergencyContactName
+  - string emergencyContactPhone
+  - string emergencyContactEmail
+  - string emergencyContactAddress
+  - string emergencyContactRelation
+  - BloodGroup emergencyContactBloodGroup
+}
+
+enum BloodGroup {
+  A_PLUS
+  A_MINUS
+  B_PLUS
+  B_MINUS
+  AB_PLUS
+  AB_MINUS
+  O_PLUS
+  O_MINUS
+}
+
+class Appointment {
+  - int appointmentId
+  - datetime appointmentDate
+  - status appointmentStatus
+}
+
+enum status {
+  confirmed
+  canceled
+}
+
+class MedicalRecord {
+  - int recordId
+  - datetime dateCreated
+  - string treatmentPlan
+  - string testResults
+  - blob imageData
+}
+
+' DAO Classes with Singleton Pattern
+class PatientDAO {
+  - static PatientDAO instance
+  + static getInstance()
+  createPatient()
+  findPatient()
+  updatePatient()
+  deletePatient()
+}
+
+class DoctorDAO {
+  - static DoctorDAO instance
+  + static getInstance()
+  createDoctor()
+  findDoctor()
+  updateDoctor()
+  deleteDoctor()
+}
+
+class NurseDAO {
+  - static NurseDAO instance
+  + static getInstance()
+  createNurse()
+  findNurse()
+  updateNurse()
+  deleteNurse()
+}
+
+class AdministratorDAO {
+  - static AdministratorDAO instance
+  + static getInstance()
+  createAdministrator()
+  updateAdministrator()
+  deleteAdministrator()
+}
+
+class AppointmentDAO {
+  - static AppointmentDAO instance
+  + static getInstance()
+  createAppointment()
+  readAppointment()
+  updateAppointment()
+  deleteAppointment()
+}
+
+class MedicalRecordDAO {
+  - static MedicalRecordDAO instance
+  + static getInstance()
+  createMedicalRecord()
+  readMedicalRecord()
+  updateMedicalRecord()
+  deleteMedicalRecord()
+}
+
+' Relationships
+User <|-- Doctor 
+User <|-- Nurse
+User <|-- Administrator
+
+Patient "1" - "0..*" Appointment
+Patient "1" o-- "0..*" MedicalRecord
+Appointment "0..*" - "1" Nurse
+MedicalRecord "0..*" - "1" Doctor
+Appointment "0..*" - "1" Doctor
+
+' DAO Relationships
+Patient -- PatientDAO
+Doctor -- DoctorDAO
+Nurse -- NurseDAO
+Administrator -- AdministratorDAO
+Appointment -- AppointmentDAO
+MedicalRecord -- MedicalRecordDAO
+
+@enduml
