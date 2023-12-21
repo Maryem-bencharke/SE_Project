@@ -223,15 +223,12 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
     }
     
     public function deletePatient($patient){
-        // implementation goes here
     }
     
     public function getPatient($patientID){
-        // implementation goes here
     }
     
     public function getPatients(){
-        // implementation goes here
     }
 }
 //test 
