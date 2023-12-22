@@ -1,76 +1,168 @@
 <?php
-require_once 'Db.php'; 
 
-class MedicalRecordDAO extends AbstractDAO {
-    private static $instance = null;
+require 'db/db.php'; 
 
-    // Private constructor for Singleton
-    private function __construct() {
-        parent::__construct(); 
-    }
+interface MedicalRecordDAO {
+    public function createMedicalRecord($medicalRecord);
+    public function readMedicalRecord($recordId);
+    public function updateMedicalRecord($medicalRecord);
+    public function deleteMedicalRecord($recordId);
+}
 
-    // Singleton getInstance method
-    public static function getInstance() {
-        if (self::$instance == null) {
-            self::$instance = new MedicalRecordDAO();
-        }
-        return self::$instance;
-    }
-
-    // Create a medical record
-    public function createMedicalRecord($recordDetails) {
-        $sql = "INSERT INTO MedicalRecord (PatientID, DoctorID, NurseID, DateCreated, Record, TreatmentPlan, TestResults, ImageData) VALUES (:PatientID, :DoctorID, :NurseID, :DateCreated, :Record, :TreatmentPlan, :TestResults, :ImageData)";
+class MedicalRecordDAOImpl extends AbstractDAO implements MedicalRecordDAO {
+    
+    public function createMedicalRecord($medicalRecord) {
+        // Prepare an SQL statement to insert a new medical record
+        $sql = "INSERT INTO MedicalRecord (PatientID, DoctorID, NurseID, DateCreated, Record, TreatmentPlan, TestResults, ImageData) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->_connection->prepare($sql);
 
-        // Bind parameters
-        $stmt->bindValue(':PatientID', $recordDetails['PatientID']);
-        $stmt->bindValue(':DoctorID', $recordDetails['DoctorID']);
-        $stmt->bindValue(':NurseID', $recordDetails['NurseID']);
-        $stmt->bindValue(':DateCreated', $recordDetails['DateCreated']);
-        $stmt->bindValue(':Record', $recordDetails['Record']);
-        $stmt->bindValue(':TreatmentPlan', $recordDetails['TreatmentPlan']);
-        $stmt->bindValue(':TestResults', $recordDetails['TestResults']);
-        $stmt->bindValue(':ImageData', $recordDetails['ImageData']);
-
-        $stmt->execute();
+        // Execute the statement with values from the MedicalRecord object
+        $stmt->execute([
+            $medicalRecord->getPatientID(),
+            $medicalRecord->getDoctorID(),
+            $medicalRecord->getNurseID(),
+            $medicalRecord->getDateCreated(),
+            $medicalRecord->getRecord(),
+            $medicalRecord->getTreatmentPlan(),
+            $medicalRecord->getTestResults(),
+            $medicalRecord->getImageData()
+        ]);
+        // Add error handling as necessary
     }
 
-    // Read a medical record
     public function readMedicalRecord($recordId) {
-        $sql = "SELECT * FROM MedicalRecord WHERE RecordID = :RecordID";
+        // Prepare an SQL statement to read a medical record by ID
+        $sql = "SELECT * FROM MedicalRecord WHERE RecordID = ?";
         $stmt = $this->_connection->prepare($sql);
-        $stmt->bindValue(':RecordID', $recordId);
-        $stmt->execute();
+        $stmt->execute([$recordId]);
 
+        // Fetch and return the record
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Update a medical record
-    public function updateMedicalRecord($recordData) {
+    public function updateMedicalRecord($medicalRecord) {
+        // Prepare an SQL statement to update a medical record
         $sql = "UPDATE MedicalRecord SET PatientID = ?, DoctorID = ?, NurseID = ?, DateCreated = ?, Record = ?, TreatmentPlan = ?, TestResults = ?, ImageData = ? WHERE RecordID = ?";
         $stmt = $this->_connection->prepare($sql);
-    
+
+        // Execute the statement with updated values
         $stmt->execute([
-            $recordData['PatientID'],
-            $recordData['DoctorID'],
-            $recordData['NurseID'],
-            $recordData['DateCreated'],
-            $recordData['Record'],
-            $recordData['TreatmentPlan'],
-            $recordData['TestResults'],
-            $recordData['ImageData'],
-            $recordData['RecordID']
+            $medicalRecord->getPatientID(),
+            $medicalRecord->getDoctorID(),
+            $medicalRecord->getNurseID(),
+            $medicalRecord->getDateCreated(),
+            $medicalRecord->getRecord(),
+            $medicalRecord->getTreatmentPlan(),
+            $medicalRecord->getTestResults(),
+            $medicalRecord->getImageData(),
+            $medicalRecord->getRecordId()
         ]);
+        // Add error handling as necessary
     }
-    
 
-    // Delete a medical record
     public function deleteMedicalRecord($recordId) {
-        $sql = "DELETE FROM MedicalRecord WHERE RecordID = :RecordID";
+        // Prepare an SQL statement to delete a medical record by ID
+        $sql = "DELETE FROM MedicalRecord WHERE RecordID = ?";
         $stmt = $this->_connection->prepare($sql);
-        $stmt->bindValue(':RecordID', $recordId);
-
-        $stmt->execute();
+        $stmt->execute([$recordId]);
+        // Add error handling as necessary
     }
 }
+
+
+class MedicalRecord {
+    private $_recordId;
+    private $_dateCreated;
+    private $_treatmentPlan;
+    private $_testResults;
+    private $_imageData;
+// Constructor
+    public function __construct($recordId, $dateCreated, $treatmentPlan, $testResults, $imageData) {
+        $this->_recordId = $recordId;
+        $this->_dateCreated = $dateCreated;
+        $this->_treatmentPlan = $treatmentPlan;
+        $this->_testResults = $testResults;
+        $this->_imageData = $imageData;
+    }
+
+    // Getters
+    public function getRecordId() {
+        return $this->_recordId;
+    }
+
+    public function getDateCreated() {
+        return $this->_dateCreated;
+    }
+
+    public function getTreatmentPlan() {
+        return $this->_treatmentPlan;
+    }
+
+    public function getTestResults() {
+        return $this->_testResults;
+    }
+
+    public function getImageData() {
+        return $this->_imageData;
+    }
+
+    // Setters
+    public function setRecordId($recordId) {
+        $this->_recordId = $recordId;
+    }
+
+    public function setDateCreated($dateCreated) {
+        $this->_dateCreated = $dateCreated;
+    }
+
+    public function setTreatmentPlan($treatmentPlan) {
+        $this->_treatmentPlan = $treatmentPlan;
+    }
+
+    public function setTestResults($testResults) {
+        $this->_testResults = $testResults;
+    }
+
+    public function setImageData($imageData) {
+        $this->_imageData = $imageData;
+    }
+}
+
+// Create a new MedicalRecord instance
+$medicalRecord = new MedicalRecord(
+    null, // RecordID is auto-increment, so pass null or don't include it in the constructor
+    1,    // PatientID
+    2,    // DoctorID
+    3,    // NurseID
+    '2023-01-01', // DateCreated
+    'Sample Medical Record', // Record
+    'Treatment Plan',        // TreatmentPlan
+    'Test Results',          // TestResults
+    null  // ImageData (binary data or null)
+);
+
+// Create a new medical record in the database
+$medicalRecordDAO = new MedicalRecordDAOImpl();
+$medicalRecordDAO->createMedicalRecord($medicalRecord);
+echo "\nMedical record added\n";
+
+// Assuming you retrieve the RecordID after insertion
+// This depends on your implementation details on how you handle auto-incremented IDs post-insertion
+$recordId = 1; // Replace with the actual ID or retrieval method
+
+// Read a medical record from the database
+$retrievedRecord = $medicalRecordDAO->readMedicalRecord($recordId);
+echo "Retrieved Record: ";
+print_r($retrievedRecord);
+echo "\n";
+
+$medicalRecord->setRecordId($recordId); // Set the record ID to identify which record to update
+$medicalRecordDAO->updateMedicalRecord($medicalRecord);
+echo "\nMedical record updated\n";
+
+// Delete a medical record from the database
+$medicalRecordDAO->deleteMedicalRecord($recordId);
+echo "\nMedical record deleted\n";
+
+
 ?>
