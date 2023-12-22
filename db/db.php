@@ -13,7 +13,6 @@
         try {
             $this->_connection = new PDO("mysql:host=$this->_host;dbname=$this->_database", $this->_username, $this->_password); 
         } catch (PDOException $e) {
-            echo 'here';
             echo $e->getMessage();
         }
     }
