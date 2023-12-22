@@ -1,16 +1,16 @@
 <?php
 abstract class User {
     protected $userID;
-    protected $name;
+    protected $username; 
     protected $password;
     protected $email;
     protected $address;
     protected $phoneNumber;
     protected $CIN;
 
-    public function __construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN) {
+    public function __construct($userID, $username, $password, $email, $address, $phoneNumber, $CIN) {
         $this->userID = $userID;
-        $this->name = $name;
+        $this->username = $username;
         $this->password = $password;
         $this->email = $email;
         $this->address = $address;
@@ -24,7 +24,7 @@ abstract class User {
     }
 
     public function getName() {
-        return $this->name;
+        return $this->username;
     }
 
     public function getPassword() {
@@ -52,8 +52,8 @@ abstract class User {
         $this->userID = $userID;
     }
 
-    public function setName($name) {
-        $this->name = $name;
+    public function setName($username) {
+        $this->username = $username;
     }
 
     public function setPassword($password) {
@@ -76,4 +76,3 @@ abstract class User {
         $this->CIN = $CIN;
     }
 }
-?>

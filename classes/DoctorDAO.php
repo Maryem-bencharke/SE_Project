@@ -1,9 +1,8 @@
 <?php
-
-interface DoctorDAO {
+/*interface DoctorDAO {
     public function createDoctor($doctor);
-    public function findDoctor($doctorID);
-    public function updateDoctor($doctor);
-    public function deleteDoctor($doctorID);
+    public function findDoctor($cin);
+    public function updateDoctor($doctor, $cin);
+    public function deleteDoctor($cin);
 }
-?>
+?>*/
