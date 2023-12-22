@@ -193,12 +193,8 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
                 $emergencyContactBloodGroup = $patient->getEmergencyContactBloodGroup();
                 $emergencyContactCIN = $patient->getEmergencyContactCIN();
                 try{
-                    // $sql ="INSERT INTO patient SET CIN=:CIN, BirthDate=:BirthDate, FirstName=:FirstName, LastName=:LastName,Gender=:Gender, Email=:Email, PhoneNumber=:PhoneNumber, BloodGroup=:BloodGroup, Address=:Address, Allergies=:Allergies,InsuranceInfo=:InsuranceInfo,  emergencyContactName=:EmergencyContactName, emergencyContactPhone=:EmergencyContactPhone, emergencyContactEmail=:EmergencyContactEmail, emergencyContactAddress=:EmergencyContactAddress, emergencyContactRelation=:EmergencyContactRelation, emergencyContactBloodGroup=:EmergencyContactBloodGroup , emergencyContactCIN=:EmergencyContactCIN, WHERE PatientID=:PatientID";
                     $sql = "INSERT INTO patient (CIN , BirthDate, FirstName, LastName,Gender, Email, PhoneNumber, BloodGroup, Address, Allergies, InsuranceInfo, emergencyContactName, emergencyContactPhone, emergencyContactEmail , emergencyContactAddress, emergencyContactRelation, emergencyContactBloodGroup, emergencyContactCIN)VALUES (:CIN, :BirthDate, :FirstName, :LastName, :Gender, :Email, :PhoneNumber, :BloodGroup, :Address, :Allergies, :InsuranceInfo, :EmergencyContactName,:EmergencyContactPhone, :EmergencyContactEmail,:EmergencyContactAddress,:EmergencyContactRelation, :EmergencyContactBloodGroup, :EmergencyContactCIN )";
                     $stmt = $this->_connection->prepare($sql);
-                    //$stmt = Db::getInstance();
-                    //$stmt = $stmt->getConnection();
-                    //$stmt = $stmt->prepare($sql);
                     $stmt->bindParam(":CIN", $CIN, PDO::PARAM_STR);
                     $stmt->bindParam(":BirthDate", $birthDate, PDO::PARAM_STR);
                     $stmt->bindParam(":FirstName", $firstName, PDO::PARAM_STR);
