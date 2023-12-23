@@ -1,8 +1,8 @@
 <?php
 require 'User.php';
-require '../db/db.php';
+require 'db/db.php';
 require 'Patient.php';
-require 'Appointment.php';
+require 'AppointmentDAO.php';
 //max appointment per day for a doctor are 10
 class Nurse extends User{
 
@@ -105,7 +105,7 @@ class Nurse extends User{
             //     throw new Exception("Doctor not available");
             // }
             $appointmentDAO = new AppointmentDAOImpl();
-            $appointmentDAO->addAppointment($appointment);
+            $appointmentDAO->createAppointment($appointment);
         }
         else{
             throw new Exception("Not an instance of Appointment");
@@ -113,7 +113,7 @@ class Nurse extends User{
     }
     public function changeAppointmentStatus($appointment, $status){
         if ($appointment instanceof Appointment){
-            $appointment->setStatus($status);
+            $appointment->setAppointmentStatus($status);
             $appointmentDAO = new AppointmentDAOImpl();
             $appointmentDAO->updateAppointment($appointment);
         }
@@ -144,7 +144,7 @@ class Nurse extends User{
             //     if($doctor->getAppointmentsPerDay() >= 10){
             //         throw new Exception("Doctor not available");
             //     }
-                $appointment->setDoctorID($doctor);
+                $appointment->setDoctorId($doctor);
                 $appointmentDAO = new AppointmentDAOImpl();
                 $appointmentDAO->updateAppointment($appointment);
             }
@@ -166,6 +166,16 @@ class Nurse extends User{
             throw new Exception("Not an instance of Patient");
         }
     }
-
+    public function cancelAppointment($appointment){
+        if ($appointment instanceof Appointment){
+            $appointmentDAO = new AppointmentDAOImpl();
+            $appointmentDAO->deleteAppointment($appointment->getAppointmentId());
+        }
+        else{
+            throw new Exception("Not an instance of Appointment");
+        }
+    }
+    
+    
 }
 ?>

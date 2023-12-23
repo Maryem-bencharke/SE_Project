@@ -12,7 +12,7 @@ class Appointment {
     private $_appointmentId;
     private $_appointmentDate;
     private $_appointmentStatus;
-
+    //zidi doctorId nurseId patientId setters ou lgetters dyalohoum
     public function __construct($appointmentId, $appointmentDate, $appointmentStatus) {
         $this->_appointmentId = $appointmentId;
         $this->_appointmentDate = $appointmentDate;
@@ -44,6 +44,8 @@ class Appointment {
     public function setAppointmentStatus($appointmentStatus) {
         $this->_appointmentStatus = $appointmentStatus;
     }
+    public function setDoctorId($doctorId){
+    }
 }
 class AppointmentDAOImpl extends AbstractDAO implements AppointmentDAO {
     
@@ -64,6 +66,7 @@ class AppointmentDAOImpl extends AbstractDAO implements AppointmentDAO {
     }
 
     public function updateAppointment($appointment) {
+        //handli lexception ila makantch appointmnet instance dyal appointment
         $sql = "UPDATE Appointment SET appointmentDate = ?, appointmentStatus = ? WHERE appointmentId = ?";
         $stmt = $this->_connection->prepare($sql);
         $stmt->execute([
@@ -78,7 +81,18 @@ class AppointmentDAOImpl extends AbstractDAO implements AppointmentDAO {
         $stmt = $this->_connection->prepare($sql);
         $stmt->execute([$appointmentId]);
     }
+    public function getAppointmentsByPatient($patient){
+    }
 }
+//test
+$appointmentDAO = new AppointmentDAOImpl();
+$appointment = new Appointment(1, "2021-03-01", "Pending");
+$appointmentDAO->createAppointment($appointment);
+$appointment = $appointmentDAO->readAppointment(1);
+$appointment->setAppointmentDate("2021-03-02");
+$appointment->setAppointmentStatus("Approved");
+$appointmentDAO->updateAppointment($appointment);
+$appointmentDAO->deleteAppointment(1);
 
 
 
