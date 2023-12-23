@@ -1,7 +1,7 @@
 <?php
 require 'User.php';
 require '../db/db.php';
-require 'Patient.php';
+require 'patient.php';
 require 'AppointmentDAO.php';
 
 // Doctor class extending User
