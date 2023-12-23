@@ -1,6 +1,6 @@
 <?php
 require 'User.php';
-require 'db/db.php';
+require '../db/db.php';
 require 'Patient.php';
 require 'AppointmentDAO.php';
 //max appointment per day for a doctor are 10

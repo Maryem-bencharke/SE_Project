@@ -1,5 +1,5 @@
 <?php
-require 'db/db.php';
+require '../db/db.php';
 require 'enum.php';
 class Patient{
     private $_patientID;
