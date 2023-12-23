@@ -12,6 +12,10 @@ class Appointment {
     private $_appointmentId;
     private $_appointmentDate;
     private $_appointmentStatus;
+    private $_doctorId;
+    private $_nurseId;
+    private $_patientId;
+
     //zidi doctorId nurseId patientId setters ou lgetters dyalohoum
     public function __construct($appointmentId, $appointmentDate, $appointmentStatus) {
         $this->_appointmentId = $appointmentId;
@@ -44,17 +48,42 @@ class Appointment {
     public function setAppointmentStatus($appointmentStatus) {
         $this->_appointmentStatus = $appointmentStatus;
     }
-    public function setDoctorId($doctorId){
+    public function setDoctorId($doctorId) {
+        $this->_doctorId = $doctorId;
+    }
+
+    public function setNurseId($nurseId) {
+        $this->_nurseId = $nurseId;
+    }
+
+    public function setPatientId($patientId) {
+        $this->_patientId = $patientId;
+    }
+
+    // Getters
+    public function getDoctorId() {
+        return $this->_doctorId;
+    }
+
+    public function getNurseId() {
+        return $this->_nurseId;
+    }
+
+    public function getPatientId() {
+        return $this->_patientId;
     }
 }
 class AppointmentDAOImpl extends AbstractDAO implements AppointmentDAO {
     
     public function createAppointment($appointment) {
-        $sql = "INSERT INTO Appointment (appointmentDate, appointmentStatus) VALUES (?, ?)";
+        $sql = "INSERT INTO Appointment (PatientID, DoctorID, NurseID, AppointmentDate, Status) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->_connection->prepare($sql);
         $stmt->execute([
+            $appointment->getPatientId(),
             $appointment->getAppointmentDate(),
-            $appointment->getAppointmentStatus()
+            $appointment->getAppointmentStatus(),
+            $appointment->getDoctorId(),
+            $appointment->getNurseId(),
         ]);
     }
 
@@ -66,10 +95,12 @@ class AppointmentDAOImpl extends AbstractDAO implements AppointmentDAO {
     }
 
     public function updateAppointment($appointment) {
-        //handli lexception ila makantch appointmnet instance dyal appointment
-        $sql = "UPDATE Appointment SET appointmentDate = ?, appointmentStatus = ? WHERE appointmentId = ?";
+        $sql = "UPDATE Appointment SET PatientID = ?, DoctorID = ?, NurseID = ?, AppointmentDate = ?, Status = ? WHERE AppointmentID = ?";
         $stmt = $this->_connection->prepare($sql);
         $stmt->execute([
+            $appointment->getPatientId(),
+            $appointment->getDoctorId(),
+            $appointment->getNurseId(),
             $appointment->getAppointmentDate(),
             $appointment->getAppointmentStatus(),
             $appointment->getAppointmentId()
@@ -81,12 +112,24 @@ class AppointmentDAOImpl extends AbstractDAO implements AppointmentDAO {
         $stmt = $this->_connection->prepare($sql);
         $stmt->execute([$appointmentId]);
     }
-    public function getAppointmentsByPatient($patient){
+
+
+    public function getAppointmentsByPatient($patientId) {
+        $sql = "SELECT * FROM Appointment WHERE PatientID = ?";
+        $stmt = $this->_connection->prepare($sql);
+        $stmt->execute([$patientId]);
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getAppointmentsPerDay($doctor, $date) {
-
-        }
-
+    
+    public function getAppointmentsPerDay($doctorId, $date) {
+        $sql = "SELECT * FROM Appointment WHERE DoctorID = ? AND AppointmentDate = ?";
+        $stmt = $this->_connection->prepare($sql);
+        $stmt->execute([$doctorId, $date]);
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 
 }
 //test
