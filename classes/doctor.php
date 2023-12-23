@@ -211,3 +211,5 @@ try {
 } catch (Exception $e) {
     echo "Error deleting doctor: " . $e->getMessage();
 }
+
+?>
