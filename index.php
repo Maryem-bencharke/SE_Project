@@ -1,6 +1,7 @@
 <?php
     require_once 'db/db.php';
     session_start();
+    phpinfo();
 ?>
 <!DOCTYPE html>
 <html lang="fr">

@@ -1,15 +1,16 @@
 <?php
 require 'User.php';
 require '../db/db.php';
+require 'Patient.php';
 
 // Doctor class extending User
 class Doctor extends User  {
 
-    public function __construct($userID, $username, $password, $email, $address, $phoneNumber, $CIN) {
-        parent::__construct($userID, $username, $password, $email, $address, $phoneNumber, $CIN);
+    public function __construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN) {
+        parent::__construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN);
     }
 
-    /*public function searchPatient($firstName, $lastName) {
+    public function searchPatient($firstName, $lastName) {
         $sql = "SELECT * FROM Patient WHERE FirstName LIKE ? AND LastName LIKE ?";
         $stmt = $this->_connection->prepare($sql);
         $likeFirstName = '%' . $firstName . '%';
@@ -18,8 +19,11 @@ class Doctor extends User  {
         $stmt->bindParam(2, $likeLastName);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }*/
+    }
     public function updatePatient(){
+
+    }
+    public function getAppointmentsPerDay(){
 
     }
 }
@@ -78,7 +82,7 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
 
 
     public function findDoctor($cin) {
-        $sql = "SELECT * FROM Doctor WHERE CIN = :CIN";
+        $sql = 'SELECT * FROM Doctor WHERE CIN =:CIN';
         $stmt = $this->_connection->prepare($sql);
         $stmt->bindParam(":CIN", $cin, PDO::PARAM_STR);
         $stmt->execute();
