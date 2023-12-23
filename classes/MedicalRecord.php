@@ -1,6 +1,6 @@
 <?php
 
-require 'db/db.php'; 
+require '../db/db.php';
 
 interface MedicalRecordDAO {
     public function createMedicalRecord($medicalRecord);
