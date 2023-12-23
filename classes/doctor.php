@@ -99,13 +99,14 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
             $stmt->bindParam(":CIN", $cin, PDO::PARAM_STR);
             $stmt->execute();
             $doctor = $stmt->fetch(PDO::FETCH_ASSOC);
-            $doctor = new Doctor($doctor['UserID'], $doctor['Username'], $doctor['Password'], $doctor['Email'], $doctor['Address'], $doctor['PhoneNumber'], $doctor['CIN']);
+            $doctor = new Doctor($doctor['DoctorID'], $doctor['Username'], $doctor['Password'], $doctor['Email'], $doctor['Address'], $doctor['PhoneNumber'], $doctor['CIN']);
             return $doctor;
         }
         catch(PDOException $e){
             echo $e->getMessage();
         }
     }
+
 
     public function updateDoctor($doctor) {
         if ($doctor instanceof Doctor) {
@@ -115,16 +116,17 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
                 $email = $doctor->getEmail();
                 $phoneNumber = $doctor->getPhoneNumber();
                 $address = $doctor->getAddress();
-            try {
-                 $sql = "UPDATE Doctor SET Username=:Username, Email=:Email, PhoneNumber=:PhoneNumber, Address=:Address WHERE UserID=:UserID";
-                 $stmt = $this->_connection->prepare($sql);
+                $cin = $doctor->getCIN();
 
-                 $stmt->bindParam(":Username", $username, PDO::PARAM_STR);
+            try {
+                $sql = "UPDATE Doctor SET Username=:Username, Email=:Email, PhoneNumber=:PhoneNumber, Address=:Address WHERE DoctorID=:DoctorID";
+                $stmt = $this->_connection->prepare($sql);
+
+                $stmt->bindParam(":Username", $username, PDO::PARAM_STR);
                 $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
                 $stmt->bindParam(":PhoneNumber", $phoneNumber, PDO::PARAM_STR);
                 $stmt->bindParam(":Address", $address, PDO::PARAM_STR);
-                $stmt->bindParam(":UserID", $doctorID, PDO::PARAM_INT);
-
+                $stmt->bindParam(":DoctorID", $doctorID, PDO::PARAM_INT);
                     $stmt->execute();
                 }
                 catch(PDOException $e){
@@ -147,7 +149,7 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
             try {
                 $doctorID = $doctor->getUserID();
                 try{
-                $sql = "DELETE FROM Doctor WHERE userID=:doctorID";
+                $sql = "DELETE FROM Doctor WHERE DoctorID=:doctorID";
                 $stmt = $this->_connection->prepare($sql);
                 $stmt->bindParam(":doctorID", $doctorID, PDO::PARAM_INT);
                 $stmt->execute();
