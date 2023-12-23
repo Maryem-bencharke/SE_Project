@@ -83,6 +83,11 @@ class AppointmentDAOImpl extends AbstractDAO implements AppointmentDAO {
     }
     public function getAppointmentsByPatient($patient){
     }
+    public function getAppointmentsPerDay($doctor, $date) {
+
+        }
+
+
 }
 //test
 $appointmentDAO = new AppointmentDAOImpl();

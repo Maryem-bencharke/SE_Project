@@ -2,38 +2,48 @@
 require 'User.php';
 require '../db/db.php';
 require 'Patient.php';
+require 'AppointmentDAO.php';
 
 // Doctor class extending User
-class Doctor extends User  {
+class Doctor extends User
+{
 
     public function __construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN) {
         parent::__construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN);
     }
 
-    public function searchPatient($firstName, $lastName) {
-        $sql = "SELECT * FROM Patient WHERE FirstName LIKE ? AND LastName LIKE ?";
-        $stmt = $this->_connection->prepare($sql);
-        $likeFirstName = '%' . $firstName . '%';
-        $likeLastName = '%' . $lastName . '%';
-        $stmt->bindParam(1, $likeFirstName);
-        $stmt->bindParam(2, $likeLastName);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    public function getPatient($firstName, $lastName)
+    {
+        $patientDAO = new PatientDAOImpl();
+        return $patientDAO->getPatient($firstName, $lastName);
     }
-    public function updatePatient(){
+
+    public function updatePatient($patient)
+    {
+        $patientDAO = new PatientDAOImpl();
+        return $patientDAO->updatePatient($patient);
 
     }
-    public function getAppointmentsPerDay(){
 
+    public function getAppointmentsPerDay($doctor, $date)
+    {
+        if ($doctor instanceof Doctor) {
+            $appointmentDAO = new AppointmentDAOImpl();
+            return $appointmentDAO->getAppointmentsPerDay($doctor, $date);
+        } else {
+            throw new Exception("Not an instance of Doctor");
+        }
     }
 }
+
 
 // DoctorDAO Interface
 interface DoctorDAO {
     public function createDoctor($doctor);
-    public function findDoctor($cin);
-    public function updateDoctor($doctor, $cin);
-    public function deleteDoctor($cin);
+    public function getDoctor($cin);
+    public function updateDoctor($doctor);
+    public function deleteDoctor($doctor);
 }
 
 // DoctorDAOImpl class implementing DoctorDAO
@@ -81,37 +91,67 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
     }
 
 
-    public function findDoctor($cin) {
-        $sql = 'SELECT * FROM Doctor WHERE CIN =:CIN';
-        $stmt = $this->_connection->prepare($sql);
-        $stmt->bindParam(":CIN", $cin, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    public function getDoctor($cin)
+    {
+        try {
+            $sql = 'SELECT * FROM Doctor WHERE CIN =:CIN';
+            $stmt = $this->_connection->prepare($sql);
+            $stmt->bindParam(":CIN", $cin, PDO::PARAM_STR);
+            $stmt->execute();
+            $doctor = $stmt->fetch(PDO::FETCH_ASSOC);
+            $doctor = new Doctor($doctor['UserID'], $doctor['Username'], $doctor['Password'], $doctor['Email'], $doctor['Address'], $doctor['PhoneNumber'], $doctor['CIN']);
+            return $doctor;
+        }
+        catch(PDOException $e){
+            echo $e->getMessage();
+        }
     }
 
-    public function updateDoctor($doctor, $cin) {
-
-        if ($doctor instanceof Doctor){
+    public function updateDoctor($doctor) {
+        if ($doctor instanceof Doctor) {
             try {
+                $doctorID = $doctor->getUserID();
                 $username = $doctor->getName();
                 $email = $doctor->getEmail();
                 $phoneNumber = $doctor->getPhoneNumber();
                 $address = $doctor->getAddress();
-                try{
-                $sql = "UPDATE Doctor SET Username=:Username, Email=:Email, PhoneNumber=:PhoneNumber, Address=:Address WHERE CIN=:CIN";
-                $stmt = $this->_connection->prepare($sql);
+            try {
+                 $sql = "UPDATE Doctor SET Username=:Username, Email=:Email, PhoneNumber=:PhoneNumber, Address=:Address WHERE UserID=:UserID";
+                 $stmt = $this->_connection->prepare($sql);
 
-                $stmt->bindParam(":Username", $username, PDO::PARAM_STR);
+                 $stmt->bindParam(":Username", $username, PDO::PARAM_STR);
                 $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
                 $stmt->bindParam(":PhoneNumber", $phoneNumber, PDO::PARAM_STR);
                 $stmt->bindParam(":Address", $address, PDO::PARAM_STR);
-                $stmt->bindParam(":CIN", $cin, PDO::PARAM_STR);
+                $stmt->bindParam(":UserID", $doctorID, PDO::PARAM_INT);
 
-                $stmt->execute();
+                    $stmt->execute();
                 }
-
-
                 catch(PDOException $e){
+                    echo $e->getMessage();
+                }
+                            }
+                            catch(PDOException $e){
+                                echo $e->getMessage();
+                            }
+                        }
+                        else{
+                            throw new Exception("Not an instance of Doctor");
+                        }
+                    }
+
+
+
+    public function deleteDoctor($doctor) {
+        if ($doctor instanceof Doctor){
+            try {
+                $doctorID = $doctor->getUserID();
+                try{
+                $sql = "DELETE FROM Doctor WHERE userID=:doctorID";
+                $stmt = $this->_connection->prepare($sql);
+                $stmt->bindParam(":doctorID", $doctorID, PDO::PARAM_INT);
+                $stmt->execute();
+            }catch(PDOException $e){
                     echo $e->getMessage();
                 }
             }
@@ -125,32 +165,49 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
     }
 
 
-    public function deleteDoctor($cin) {
-        $sql = "DELETE FROM Doctor WHERE CIN = :CIN";
-        $stmt = $this->_connection->prepare($sql);
-        $stmt->bindParam(":CIN", $cin, PDO::PARAM_STR);
-        $stmt->execute();
-    }
 }
-$userID = 1;
-$username = "DrJohnDoe";
-$password = "password123";
-$email = "dr.johndoe@example.com";
-$phoneNumber = "1234567890";
-$address = "123 Main St";
-$CIN = "CIN123456";
 
-$doctor = new Doctor($userID, $username, $password, $email, $address, $phoneNumber, $CIN);
 
+//test
 $doctorDAO = new DoctorDAOImpl();
-
+$doctor = new Doctor(1, "DrExample", "password123", "dr.example@example.com", "123 Main St", "1234567890", "CIN123456");
 try {
     $doctorDAO->createDoctor($doctor);
-    echo "Doctor added successfully!";
+    echo "Doctor created successfully!";
 } catch (Exception $e) {
-    echo "Error adding doctor: " . $e->getMessage();
+    echo "Error creating doctor: " . $e->getMessage();
 }
 
 
-//change find to get
-//change name in diagram to username
+$cin = "CIN123456";
+try {
+    $retrievedDoctor = $doctorDAO->getDoctor($cin);
+    echo "Doctor Name: " . $retrievedDoctor->getName();
+} catch (Exception $e) {
+    echo "Error retrieving doctor: " . $e->getMessage();
+}
+
+
+$doctor->setEmail("new.email@example.com");
+try {
+    $doctorDAO->updateDoctor($doctor);
+    echo "Doctor updated successfully!";
+} catch (Exception $e) {
+    echo "Error updating doctor: " . $e->getMessage();
+}
+
+$date = "2023-12-20"; // Example date
+try {
+    $appointmentCount = $doctor->getAppointmentsPerDay($doctor, $date);
+    echo "Appointments on $date: $appointmentCount";
+} catch (Exception $e) {
+    echo "Error getting appointments: " . $e->getMessage();
+}
+
+
+try {
+    $doctorDAO->deleteDoctor($doctor);
+    echo "Doctor deleted successfully!";
+} catch (Exception $e) {
+    echo "Error deleting doctor: " . $e->getMessage();
+}
