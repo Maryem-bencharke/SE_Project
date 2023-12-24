@@ -1,8 +1,8 @@
 <?php
-require 'User.php';
-require '../db/db.php';
-require 'patient.php';
-require 'AppointmentDAO.php';
+require_once 'User.php';
+require_once '../db/db.php';
+require_once 'patient.php';
+require_once 'AppointmentDAO.php';
 
 // Doctor class extending User
 class Doctor extends User
@@ -26,15 +26,20 @@ class Doctor extends User
 
     }
 
-    public function getAppointmentsPerDay($doctor, $date)
-    {
-        if ($doctor instanceof Doctor) {
-            $appointmentDAO = new AppointmentDAOImpl();
-            return $appointmentDAO->getAppointmentsPerDay($doctor, $date);
-        } else {
-            throw new Exception("Not an instance of Doctor");
-        }
+    public function getAppointmentsPerDay($doctor, $date){
+    if ($doctor instanceof Doctor) {
+        $doctorId = $doctor->getUserID();
+        $appointmentDAO = new AppointmentDAOImpl();
+        //return $appointmentDAO->getAppointmentsPerDay($doctorId, $date);
+        $appointments = $appointmentDAO->getAppointmentsPerDay($doctorId, $date);
+
+        // Count the number of appointments returned
+        $appointmentCount = count($appointments);
+        return $appointmentCount;
+    } else {
+        throw new Exception("The provided object is not an instance of Doctor.");
     }
+}
 }
 
 
@@ -49,11 +54,22 @@ interface DoctorDAO {
 // DoctorDAOImpl class implementing DoctorDAO
 class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
 
+    public function usernameExists($username) {
+        $sql = "SELECT COUNT(*) FROM Doctor WHERE Username = :Username";
+        $stmt = $this->_connection->prepare($sql);
+        $stmt->bindParam(":Username", $username, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
 
     public function createDoctor($doctor) {
         if ($doctor instanceof Doctor) {
+
             try {
                 $username = $doctor->getName();
+                if ($this->usernameExists($username)) {
+                    throw new Exception("Username already exists. Please choose a different username.");
+                }
                 $password = $doctor->getPassword();
                 $email = $doctor->getEmail();
                 $phoneNumber = $doctor->getPhoneNumber();
@@ -113,6 +129,9 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
             try {
                 $doctorID = $doctor->getUserID();
                 $username = $doctor->getName();
+                if ($this->usernameExists($username)) {
+                    throw new Exception("Username already exists. Please choose a different username.");
+                }
                 $email = $doctor->getEmail();
                 $phoneNumber = $doctor->getPhoneNumber();
                 $address = $doctor->getAddress();

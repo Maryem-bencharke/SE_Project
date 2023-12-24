@@ -1,8 +1,8 @@
 <?php
-require 'User.php';
-require '../db/db.php';
-require 'nurse.php';
-require 'Doctor.php';
+require_once 'User.php';
+require_once '../db/db.php';
+require_once 'nurse.php';
+require_once 'Doctor.php';
 class Administrator extends User {
     public function __construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN) {
         parent::__construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN);
@@ -33,11 +33,20 @@ interface AdministratorDAO {
     public function deleteAdministrator($administrator);
 }
 class AdministratorDAOImpl extends AbstractDAO implements AdministratorDAO {
-
+    public function usernameExists($username) {
+        $sql = "SELECT COUNT(*) FROM Administrator WHERE Username = :Username";
+        $stmt = $this->_connection->prepare($sql);
+        $stmt->bindParam(":Username", $username, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
     public function createAdministrator($administrator) {
         if ($administrator instanceof Administrator) {
             try {
                 $username = $administrator->getName();
+                if ($this->usernameExists($username)) {
+                    throw new Exception("Username already exists. Please choose a different username.");
+                }
                 $password = $administrator->getPassword();
                 $email = $administrator->getEmail();
                 $phoneNumber = $administrator->getPhoneNumber();
@@ -81,6 +90,9 @@ class AdministratorDAOImpl extends AbstractDAO implements AdministratorDAO {
             try {
                 $adminID = $administrator->getUserID();
                 $username = $administrator->getName();
+                if ($this->usernameExists($username)) {
+                    throw new Exception("Username already exists. Please choose a different username.");
+                }
                 $email = $administrator->getEmail();
                 $phoneNumber = $administrator->getPhoneNumber();
                 $address = $administrator->getAddress();
