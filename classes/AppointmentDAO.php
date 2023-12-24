@@ -16,11 +16,16 @@ class Appointment {
     private $_nurseId;
     private $_patientId;
 
-    //zidi doctorId nurseId patientId setters ou lgetters dyalohoum
-    public function __construct($appointmentId, $appointmentDate, $appointmentStatus) {
+    
+    public function __construct($appointmentId, $appointmentDate, $appointmentStatus, $doctorId,
+    $nurseId, $patientId) 
+    {
         $this->_appointmentId = $appointmentId;
         $this->_appointmentDate = $appointmentDate;
         $this->_appointmentStatus = $appointmentStatus;
+        $this->_doctorId = $doctorId;
+        $this->_nurseId = $nurseId;
+        $this->_patientId = $patientId;
     }
 
     // Getters
@@ -122,26 +127,32 @@ class AppointmentDAOImpl extends AbstractDAO implements AppointmentDAO {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function getAppointmentsPerDay($doctorId, $date) {
-        $sql = "SELECT * FROM Appointment WHERE DoctorID = ? AND AppointmentDate = ?";
-        $stmt = $this->_connection->prepare($sql);
-        $stmt->execute([$doctorId, $date]);
-    
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
     
 
 }
-//test
-$appointmentDAO = new AppointmentDAOImpl();
-$appointment = new Appointment(1, "2021-03-01", "Pending");
-$appointmentDAO->createAppointment($appointment);
-$appointment = $appointmentDAO->readAppointment(1);
-$appointment->setAppointmentDate("2021-03-02");
-$appointment->setAppointmentStatus("Approved");
-$appointmentDAO->updateAppointment($appointment);
-$appointmentDAO->deleteAppointment(1);
 
+// Read an appointment from the database
+$fetchedAppointmentData = $appointmentDAO->readAppointment(1); 
 
+if ($fetchedAppointmentData) {
+    // Create an Appointment object using the fetched data
+    $appointment = new Appointment(
+        $fetchedAppointmentData['AppointmentID'],
+        $fetchedAppointmentData['AppointmentDate'],
+        $fetchedAppointmentData['Status'],
+        $fetchedAppointmentData['DoctorID'] ?? null,
+        $fetchedAppointmentData['NurseID'] ?? null,
+        $fetchedAppointmentData['PatientID'] ?? null
+    );
+
+    // Update the appointment details
+    $appointment->setAppointmentDate("2021-03-02");
+    $appointment->setAppointmentStatus("Approved");
+
+    // Update the appointment in the database
+    $appointmentDAO->updateAppointment($appointment);
+} else {
+    echo "No appointment found with the specified ID.";
+}
 
 ?> 
