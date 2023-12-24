@@ -1,13 +1,11 @@
 <?php
-require 'User.php';
-require '../db/db.php';
-require 'Patient.php';
-require 'AppointmentDAO.php';
+require_once '../User/User.php';
+require_once '../Patient/Patient.php';
+//require 'AppointmentDAO.php';
 //max appointment per day for a doctor are 10
 class Nurse extends User{
-
-    public function __construct($userID, $username, $password, $email, $address, $phoneNumber, $CIN) {
-        parent::__construct($userID, $username, $password, $email, $address, $phoneNumber, $CIN);
+    public function __construct($userID, $Username, $Password, $Email, $Address, $phoneNumber, $CIN) {
+        parent::__construct($userID, $Username, $Password, $Email, $Address, $phoneNumber, $CIN);
     }
     public function changePatientName($patient, $firstName, $lastName){
         if ($patient instanceof Patient){
@@ -20,9 +18,9 @@ class Nurse extends User{
             throw new Exception("Not an instance of Patient");
         }
     }
-    public function changePatientAddress($patient, $address){
+    public function changePatientAddress($patient, $Address){
         if ($patient instanceof Patient){
-            $patient->setAddress($address);
+            $patient->setAddress($Address);
             $patientDAO = new PatientDAOImpl();
             $patientDAO->updatePatient($patient);
         }
@@ -41,9 +39,9 @@ class Nurse extends User{
             throw new Exception("Not an instance of Patient");
         }
     }
-    public function changePatientEmail($patient, $email){
+    public function changePatientEmail($patient, $Email){
         if ($patient instanceof Patient){
-            $patient->setEmail($email);
+            $patient->setEmail($Email);
             $patientDAO = new PatientDAOImpl();
             $patientDAO->updatePatient($patient);
         }
@@ -141,9 +139,9 @@ class Nurse extends User{
     public function changeAppointmentDoctor($appointment, $doctor){
         if ($doctor instanceof Doctor){
             if ($appointment instanceof Appointment){
-            //     if($doctor->getAppointmentsPerDay() >= 10){
-            //         throw new Exception("Doctor not available");
-            //     }
+                //     if($doctor->getAppointmentsPerDay() >= 10){
+                //         throw new Exception("Doctor not available");
+                //     }
                 $appointment->setDoctorId($doctor);
                 $appointmentDAO = new AppointmentDAOImpl();
                 $appointmentDAO->updateAppointment($appointment);
@@ -155,7 +153,7 @@ class Nurse extends User{
         else{
             throw new Exception("Not an instance of Doctor");
         }
-       
+
     }
     public function searchAppointmentsPatient($patient){
         if ($patient instanceof Patient){
@@ -175,7 +173,7 @@ class Nurse extends User{
             throw new Exception("Not an instance of Appointment");
         }
     }
-    
-    
+
+
 }
 ?>

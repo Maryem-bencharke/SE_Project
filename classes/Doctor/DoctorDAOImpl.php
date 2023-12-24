@@ -1,57 +1,6 @@
 <?php
-require_once 'User.php';
-require_once '../db/db.php';
-require_once 'patient.php';
-require_once 'AppointmentDAO.php';
-
-// Doctor class extending User
-class Doctor extends User
-{
-
-    public function __construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN) {
-        parent::__construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN);
-    }
-
-
-    public function getPatient($firstName, $lastName)
-    {
-        $patientDAO = new PatientDAOImpl();
-        return $patientDAO->getPatient($firstName, $lastName);
-    }
-
-    public function updatePatient($patient)
-    {
-        $patientDAO = new PatientDAOImpl();
-        return $patientDAO->updatePatient($patient);
-
-    }
-
-    public function getAppointmentsPerDay($doctor, $date){
-    if ($doctor instanceof Doctor) {
-        $doctorId = $doctor->getUserID();
-        $appointmentDAO = new AppointmentDAOImpl();
-        //return $appointmentDAO->getAppointmentsPerDay($doctorId, $date);
-        $appointments = $appointmentDAO->getAppointmentsPerDay($doctorId, $date);
-
-        // Count the number of appointments returned
-        $appointmentCount = count($appointments);
-        return $appointmentCount;
-    } else {
-        throw new Exception("The provided object is not an instance of Doctor.");
-    }
-}
-}
-
-
-// DoctorDAO Interface
-interface DoctorDAO {
-    public function createDoctor($doctor);
-    public function getDoctor($cin);
-    public function updateDoctor($doctor);
-    public function deleteDoctor($doctor);
-}
-
-// DoctorDAOImpl class implementing DoctorDAO
+require_once '../../db/AbstractDAO.php';
+require_once 'DoctorDAO.php';
 class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
 
     public function usernameExists($username) {
@@ -187,50 +136,4 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
 
 
 }
-
-
-//test
-$doctorDAO = new DoctorDAOImpl();
-$doctor = new Doctor(1, "DrExample", "password123", "dr.example@example.com", "123 Main St", "1234567890", "CIN123456");
-try {
-    $doctorDAO->createDoctor($doctor);
-    echo "Doctor created successfully!";
-} catch (Exception $e) {
-    echo "Error creating doctor: " . $e->getMessage();
-}
-
-
-$cin = "CIN123456";
-try {
-    $retrievedDoctor = $doctorDAO->getDoctor($cin);
-    echo "Doctor Name: " . $retrievedDoctor->getName();
-} catch (Exception $e) {
-    echo "Error retrieving doctor: " . $e->getMessage();
-}
-
-
-$doctor->setEmail("new.email@example.com");
-try {
-    $doctorDAO->updateDoctor($doctor);
-    echo "Doctor updated successfully!";
-} catch (Exception $e) {
-    echo "Error updating doctor: " . $e->getMessage();
-}
-
-$date = "2023-12-20"; // Example date
-try {
-    $appointmentCount = $doctor->getAppointmentsPerDay($doctor, $date);
-    echo "Appointments on $date: $appointmentCount";
-} catch (Exception $e) {
-    echo "Error getting appointments: " . $e->getMessage();
-}
-
-
-try {
-    $doctorDAO->deleteDoctor($doctor);
-    echo "Doctor deleted successfully!";
-} catch (Exception $e) {
-    echo "Error deleting doctor: " . $e->getMessage();
-}
-
 ?>
