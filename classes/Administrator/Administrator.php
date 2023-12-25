@@ -2,7 +2,12 @@
 require_once '../User/User.php';
 require_once '../Nurse/Nurse.php';
 require_once '../Doctor/Doctor.php';
-//add imports and test functions
+require_once '../Doctor/DoctorDAO.php';
+require_once '../Doctor/DoctorDAOImpl.php';
+require_once '../Nurse/Nurse.php';
+require_once '../Nurse/NurseDAO.php';
+require_once '../Nurse/NurseDAOImpl.php';
+
 
 class Administrator extends User {
     public function __construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN) {
