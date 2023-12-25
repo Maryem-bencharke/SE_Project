@@ -1,6 +1,9 @@
 <?php
 require_once '../User/User.php';
-require_once '../Nurse/nurse.php';
+require_once '../Nurse/Nurse.php';
+require_once '../Doctor/Doctor.php';
+//add imports and test functions
+
 class Administrator extends User {
     public function __construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN) {
         parent::__construct($userID, $name, $password, $email, $address, $phoneNumber, $CIN);
@@ -15,13 +18,20 @@ class Administrator extends User {
         $doctorDAO = new DoctorDAOImpl();
         return $doctorDAO->deleteDoctor($doctor);
     }
-    public function createNurse()
+    public function createNurse($nurse)
     {
-
+        $nurseDAO = new NurseDAOImpl();
+        return $nurseDAO->addNurse($nurse);
     }
-    public function deleteNurse()
+    public function deleteNurse($nurse)
     {
-
+        if ($nurse instanceof Nurse) {
+            $nurseId = $nurse->getUserID();
+            $nurseDAO = new NurseDAOImpl();
+            return $nurseDAO->deleteNurse($nurseId);
+        } else {
+            throw new Exception("The provided object is not an instance of Nurse.");
+        }
     }
 }
 ?>

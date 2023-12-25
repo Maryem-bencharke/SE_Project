@@ -2,6 +2,7 @@
 require_once '../User/User.php';
 require_once '../Patient/Patient.php';
 require_once '../Appointment/AppointmentDAOImpl.php';
+//add imports and test those functions
 
 // Doctor class extending User
 class Doctor extends User
