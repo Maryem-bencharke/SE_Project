@@ -1,6 +1,7 @@
 <?php
 require_once '../../db/AbstractDAO.php';
 require_once 'PatientDAO.php';
+require_once 'Patient.php';
 class PatientDAOImpl extends AbstractDAO implements PatientDAO{
     public function addPatient($patient){
         if($patient instanceof Patient ){

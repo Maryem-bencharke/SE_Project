@@ -1,5 +1,5 @@
 <?php
-require_once 'Db.php';
+require_once  'db.php';
 class AbstractDAO
 {
     protected $_connection = null;
@@ -9,5 +9,9 @@ class AbstractDAO
         $db = Db::getInstance();
         $this->_connection = $db->getConnection();
     }
+    public function getConnection(){
+        return $this->_connection;
+    }
+
 }
 ?>

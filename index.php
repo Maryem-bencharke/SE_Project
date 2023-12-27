@@ -1,7 +1,20 @@
 <?php
     require_once 'db/db.php';
     session_start();
-    phpinfo();
+    if(isset($_SESSION["userID"])){
+        if($_SESSION["role"] == "nurse"){
+            header("Location: views/nurse/dashboard.php");
+            exit();
+        }
+        if($_SESSION["role"] == "doctor"){
+            header("Location: views/doctor/dashboard.php");
+            exit();
+        }
+        if($_SESSION["role"] == "administrator"){
+            header("Location: views/administrator/dashboard.php");
+            exit();
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -54,7 +67,8 @@
                         // if (password_verify($_POST['psd'], $result['Password'])) {
                             if ($_POST['psd'] == $result['Password']) {
                             $_SESSION["userID"] = $result["NurseID"];
-                            $_SESSION["USER_NAME"] = $result["Username"];   
+                            $_SESSION["USER_NAME"] = $result["Username"];  
+                            $_SESSION["role"] = $role; 
                             header("location: views/nurse/dashboard.php");                      
                             
                         } else {
@@ -80,7 +94,9 @@
                         // if (password_verify($_POST['psd'], $result['Password'])) {
                             if ($_POST['psd'] == $result['Password']) {
                             $_SESSION["userID"] = $result["DoctorID"];
-                            $_SESSION["USER_NAME"] = $result["Username"];   
+                            $_SESSION["USER_NAME"] = $result["Username"]; 
+                            $_SESSION["role"] = $role; 
+  
                             header("location: views/doctor/dashboard.php");                      
                             
                         } else {
@@ -107,6 +123,8 @@
                             if ($_POST['psd'] == $result['Password']) {
                             $_SESSION["userID"] = $result["AdministratorID"];
                             $_SESSION["USER_NAME"] = $result["Username"];   
+                            $_SESSION["role"] = $role; 
+
                             header("location: views/administrator/dashboard.php");                      
                             
                         } else {
