@@ -5,13 +5,20 @@ class MedicalRecord {
     private $_treatmentPlan;
     private $_testResults;
     private $_imageData;
+    private $_doctorId;
+    private $_nurseId;
+    private $_patientId;
 // Constructor
-    public function __construct($recordId, $dateCreated, $treatmentPlan, $testResults, $imageData) {
+    public function __construct($recordId, $dateCreated, $treatmentPlan, $testResults, $imageData, $doctorId,
+    $nurseId, $patientId) {
         $this->_recordId = $recordId;
         $this->_dateCreated = $dateCreated;
         $this->_treatmentPlan = $treatmentPlan;
         $this->_testResults = $testResults;
         $this->_imageData = $imageData;
+        $this->_doctorId = $doctorId;
+        $this->_nurseId = $nurseId;
+        $this->_patientId = $patientId;
     }
 
     // Getters
@@ -55,6 +62,32 @@ class MedicalRecord {
     public function setImageData($imageData) {
         $this->_imageData = $imageData;
     }
+
+    public function setDoctorId($doctorId) {
+        $this->_doctorId = $doctorId;
+    }
+
+    public function setNurseId($nurseId) {
+        $this->_nurseId = $nurseId;
+    }
+
+    public function setPatientId($patientId) {
+        $this->_patientId = $patientId;
+    }
+
+    // Getters
+    public function getDoctorId() {
+        return $this->_doctorId;
+    }
+
+    public function getNurseId() {
+        return $this->_nurseId;
+    }
+
+    public function getPatientId() {
+        return $this->_patientId;
+    }
+    
 }
 
 
