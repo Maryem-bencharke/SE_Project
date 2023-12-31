@@ -143,7 +143,8 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
         }
     }
 
-    public function getPatient($patientFirstName, $patientLastName){
+
+    /*public function getPatient($patientFirstName, $patientLastName){
         try{
             $sql = "SELECT * FROM patient WHERE FirstName=:PatientFirstName AND LastName=:PatientLastName";
             $stmt = $this->_connection->prepare($sql);
@@ -157,8 +158,25 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
         catch(PDOException $e){
             echo $e->getMessage();
         }
+    }*/
+    public function getPatient($patientFirstName, $patientLastName){
+        try{
+            $sql = "SELECT * FROM patient WHERE FirstName=:PatientFirstName AND LastName=:PatientLastName";
+            $stmt = $this->_connection->prepare($sql);
+            $stmt->bindParam(":PatientFirstName", $patientFirstName, PDO::PARAM_STR);
+            $stmt->bindParam(":PatientLastName", $patientLastName, PDO::PARAM_STR);
+            $stmt->execute();
+    
+            $patients = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $patients[] = new Patient($row['PatientID'], $row['FirstName'], $row['LastName'], $row['BirthDate'], $row['Gender'], $row['BloodGroup'], $row['PhoneNumber'], $row['Address'], $row['Allergies'], $row['Email'], $row['CIN'], $row['InsuranceInfo'], $row['emergencyContactName'], $row['emergencyContactPhone'], $row['emergencyContactAddress'], $row['emergencyContactEmail'], $row['emergencyContactRelation'], $row['emergencyContactBloodGroup'], $row['emergencyContactCIN']);
+            }
+            return $patients;
+        }
+        catch(PDOException $e){
+            echo $e->getMessage();
+        }
     }
-
 
     public function getAllPatients(){
         try{
@@ -189,6 +207,46 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
         }
         catch(PDOException $e){
             echo $e->getMessage();
+        }
+    }
+    public function getPatientById($patientID) {
+        try {
+            $sql = "SELECT * FROM patient WHERE PatientID = :PatientID";
+            $stmt = $this->_connection->prepare($sql);
+            $stmt->bindParam(":PatientID", $patientID, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($row) {
+                $patient = new Patient(
+                    $row['PatientID'],
+                    $row['FirstName'],
+                    $row['LastName'],
+                    $row['BirthDate'],
+                    $row['Gender'],
+                    $row['BloodGroup'],
+                    $row['PhoneNumber'],
+                    $row['Address'],
+                    $row['Allergies'],
+                    $row['Email'],
+                    $row['CIN'],
+                    $row['InsuranceInfo'],
+                    $row['emergencyContactName'],
+                    $row['emergencyContactPhone'],
+                    $row['emergencyContactEmail'],
+                    $row['emergencyContactAddress'],
+                    $row['emergencyContactRelation'],
+                    $row['emergencyContactBloodGroup'],
+                    $row['emergencyContactCIN']
+                    // Add any other fields that your Patient class requires
+                );
+                return $patient;
+            }
+            return null;
+        } catch (PDOException $e) {
+            // Handle exception
+            echo $e->getMessage();
+            return null;
         }
     }
 }

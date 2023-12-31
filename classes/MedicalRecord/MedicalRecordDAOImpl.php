@@ -60,6 +60,16 @@ class MedicalRecordDAOImpl extends AbstractDAO implements MedicalRecordDAO {
         $stmt->execute([$recordId]);
         // Add error handling as necessary
     }
+    public function getMedicalRecordByPatientId($patientId) {
+        // Prepare an SQL statement to read a medical record by PatientID
+        $sql = "SELECT * FROM MedicalRecord WHERE PatientID = ?";
+        $stmt = $this->_connection->prepare($sql);
+        $stmt->execute([$patientId]);
+    
+        // Fetch and return the record
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
 }
 
 ?>

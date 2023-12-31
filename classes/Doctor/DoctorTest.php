@@ -37,12 +37,12 @@ try {
     echo "Error getting appointments: " . $e->getMessage();
 }
 
-
+/*
 try {
     $doctorDAO->deleteDoctor($doctor);
     echo "Doctor deleted successfully!";
 } catch (Exception $e) {
     echo "Error deleting doctor: " . $e->getMessage();
 }
-
+*/
 ?>

@@ -29,7 +29,12 @@ echo "\nadded \n";
 // test getPatient
 $patientDAO = new PatientDAOImpl();
 $patient = $patientDAO->getPatient("Mohamed", "Ben Ali");
-echo $patient->getFirstName();
+//echo $patient->getFirstName();
+foreach($patient as $patient){
+    echo $patient->getFirstName();
+    echo "\n";
+
+}
 // test getAllPatients
 $patientDAO = new PatientDAOImpl();
 $patients = $patientDAO->getAllPatients();
