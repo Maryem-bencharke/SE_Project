@@ -133,6 +133,32 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
             throw new Exception("Not an instance of Doctor");
         }
     }
+    public function getAllDoctors() {
+        try {
+            $sql = "SELECT * FROM Doctor";
+            $stmt = $this->_connection->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $doctors = array();
+    
+            foreach ($result as $doctor) {
+                $doctors[] = new Doctor(
+                    $doctor['DoctorID'],
+                    $doctor['Username'],
+                    $doctor['Password'], 
+                    $doctor['Email'],
+                    $doctor['PhoneNumber'],
+                    $doctor['Address'],
+                    $doctor['CIN']
+                );
+            }
+    
+            return $doctors;
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 
 
 }
