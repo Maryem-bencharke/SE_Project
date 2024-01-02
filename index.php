@@ -26,9 +26,7 @@
     <title>Hospital</title>
 </head>
 <body>
-    <div> 
-        <!-- login -->
-        <h3>Welcome</h3>
+    
         <?php
             $database = Db::getInstance();
 
@@ -144,31 +142,44 @@
                 $submit = false;
             }
         ?>
-        <form method="post" action="">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email">
-                <span class="error"><?php echo $emailError; ?></span>
-            </div>
-            <div class="form-group">
-                <label for="psd">Password</label>
-                <input type="password" name="psd">
-                <span class="error"><?php echo $psdError; ?></span>
-            </div>
-            <!-- nurse or a doctor -->
-            <div class="form-group">
-                <label for="role">Role</label>
-            <!-- radio -->
-                <input type="radio" name="role" value="nurse" checked>Nurse
-                <input type="radio" name="role" value="doctor">Doctor
-                <input type="radio" name="role" value="administrator">administrator
-                <span class="error"><?php echo $roleError; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" name="submit" value="Log in">
+       <div class="container mt-5">
+            <div>
+                <!-- Welcome Message -->
+                <h3>Welcome</h3>
+                <p>Please login to continue</p>
             </div>
 
-        </form>
-    </div>
-</body>
+            <form method="post" action="">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email">
+                    <span class="text-danger"><?php echo $emailError; ?></span>
+                </div>
+                <div class="mb-3">
+                    <label for="psd" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="psd">
+                    <span class="text-danger"><?php echo $psdError; ?></span>
+                </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="role" value="nurse" checked>
+                        <label class="form-check-label" for="role">Nurse</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="role" value="doctor">
+                        <label class="form-check-label" for="role">Doctor</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="role" value="administrator">
+                        <label class="form-check-label" for="role">Administrator</label>
+                    </div>
+                    <span class="text-danger"><?php echo $roleError; ?></span>
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-primary" name="submit" value="Log in">
+                </div>
+            </form>
+        </div>
+        </body>
 </html>

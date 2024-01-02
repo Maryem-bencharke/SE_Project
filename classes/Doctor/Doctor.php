@@ -1,8 +1,9 @@
 <?php
-require_once '../User/User.php';
-require_once '../Patient/Patient.php';
-require_once '../Appointment/AppointmentDAOImpl.php';
-require_once '../Patient/PatientDAOImpl.php';
+require_once __DIR__ . '/../User/User.php';
+require_once __DIR__ . '/../Patient/Patient.php';
+require_once __DIR__ . '/../Appointment/Appointment.php';
+require_once __DIR__ . '/../Appointment/AppointmentDAOImpl.php';
+require_once __DIR__ . '/../Patient/PatientDAOImpl.php';
 
 // Doctor class extending User
 class Doctor extends User
@@ -26,9 +27,8 @@ class Doctor extends User
 
     }
 
-    public function getAppointmentsPerDay($doctor, $date){
-    if ($doctor instanceof Doctor) {
-        $doctorId = $doctor->getUserID();
+    public function getAppointmentsPerDay( $date){
+        $doctorId = $this->getUserID();
         $appointmentDAO = new AppointmentDAOImpl();
         //return $appointmentDAO->getAppointmentsPerDay($doctorId, $date);
         $appointments = $appointmentDAO->getAppointmentsPerDay($doctorId, $date);
@@ -36,9 +36,7 @@ class Doctor extends User
         // Count the number of appointments returned
         $appointmentCount = count($appointments);
         return $appointmentCount;
-    } else {
-        throw new Exception("The provided object is not an instance of Doctor.");
-    }
+   
 }
 }
 

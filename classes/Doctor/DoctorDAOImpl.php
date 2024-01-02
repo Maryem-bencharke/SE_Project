@@ -1,6 +1,7 @@
 <?php
 require_once '../../db/AbstractDAO.php';
 require_once 'DoctorDAO.php';
+require_once 'Doctor.php';
 class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
 
     public function usernameExists($username) {
@@ -159,7 +160,61 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
             echo $e->getMessage();
         }
     }
+    public function getDoctorById($doctorId) {
+        try {
+            $sql = "SELECT * FROM Doctor WHERE DoctorID = ?";
+            $stmt = $this->_connection->prepare($sql);
+            $stmt->execute([$doctorId]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result){
+                $doctor = new Doctor(
+                    $result['DoctorID'],
+                    $result['Username'],
+                    $result['Password'], 
+                    $result['Email'],
+                    $result['PhoneNumber'],
+                    $result['Address'],
+                    $result['CIN']
+                );
+                return $doctor;
+            }
+            else{
+                return null;
+            }
 
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+    public function getDoctorByCIN($cin) {
+        try {
+            $sql = "SELECT * FROM Doctor WHERE CIN = :CIN";
+            $stmt = $this->_connection->prepare($sql);
+            $stmt->bindParam(":CIN", $cin, PDO::PARAM_STR);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result){
+                $doctor = new Doctor(
+                    $result['DoctorID'],
+                    $result['Username'],
+                    $result['Password'], 
+                    $result['Email'],
+                    $result['PhoneNumber'],
+                    $result['Address'],
+                    $result['CIN']
+                );
+                return $doctor;
+            }
+            else{
+                return null;
+            }
 
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+    
 }
 ?>

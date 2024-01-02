@@ -7,7 +7,7 @@ if(!isset($_SESSION["userID"])){
     header("Location: ../../index.php");
     exit();
 }
-// check: if the user is a nurse
+// check: if the user is a doctor
 if($_SESSION["role"] != "doctor"){
     header("Location: ../../index.php");
     exit();

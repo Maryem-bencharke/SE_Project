@@ -1,7 +1,8 @@
 <?php
 require_once 'NurseDAO.php';
+require_once 'Nurse.php';
 require_once '../../db/AbstractDAO.php';
-require_once '../Patient/Patient.php';
+require_once(__DIR__ . '/../Patient/Patient.php');
 class NurseDAOImpl extends AbstractDAO implements NurseDAO{
     public function getNurse($Username, $Password){
         try{
@@ -132,6 +133,27 @@ class NurseDAOImpl extends AbstractDAO implements NurseDAO{
         else {
             throw new Exception("Not an instance of Nurse");
 
+        }
+    }
+    public function getNurseByCIN($nurseCIN){
+        try{
+            $query = "SELECT * FROM nurse WHERE CIN = :CIN";
+            $stmt = $this->_connection->prepare($query);
+            $stmt->bindParam(':CIN', $nurseCIN);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if($row){
+                $nurse = new Nurse($row['NurseID'], $row['Username'], $row['Password'], $row['Email'], $row['Address'], $row['PhoneNumber'], $row['CIN']);
+                return $nurse;
+            }
+            else{
+                return null;
+            }
+        }
+        catch(PDOException $e){
+            echo $e->getMessage();
+            return null;
         }
     }
 }

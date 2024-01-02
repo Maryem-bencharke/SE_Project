@@ -158,6 +158,7 @@ class Patient{
         $this->_emergencyContactBloodGroup = $emergencyContactBloodGroup;
         $this->_emergencyContactCIN = $emergencyContactCIN;
     }
+    
 }
 
 ?>  
