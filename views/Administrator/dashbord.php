@@ -11,7 +11,6 @@ if($_SESSION["role"] != "administrator"){
     exit();
 }
 
-// Include necessary files
 require_once '../../db/db.php';
 require_once '../../classes/AdministratorDAOImpl.php';
 
@@ -68,7 +67,7 @@ $adminDao = new AdministratorDAOImpl();
             <h4>Manage Users</h4>
             <a href="doctors.php" class="btn btn-primary">Manage Doctors</a>
             <a href="nurses.php" class="btn btn-primary">Manage Nurses</a>
-            <a href="patients.php" class="btn btn-primary">Manage Administrators</a>
+            <a href="administrators.php" class="btn btn-primary">Manage Administrators</a>
         </div>
         <!-- <div class="dashboard-section">
             <h4>Reports</h4>
