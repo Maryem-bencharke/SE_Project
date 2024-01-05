@@ -1,4 +1,4 @@
-*** Hospital Patient Archive Management Platform ***
+# Hospital Patient Archive Management Platform
 
 
 The Hospital Patient Archive Management Platform is a comprehensive digital system designed to streamline the management of patient records and archives within a healthcare facility. This platform provides an efficient way to handle patient information, enhancing the workflow within medical institutions.
@@ -20,16 +20,20 @@ Upon opening the platform, you will be greeted with the login screen.
 
 
 *** Doctor's Dashboard  ***
+
 If you log in as a doctor, you will see the following dashboard.
 ![Alt text](Demo/doctorDash.png)
 
  *** View Patient Management Record  ***
 To view patient management records:
+
 ![Alt text](Demo/viewPatient.png)
 
 Here you can select the number of entries to display.
 
 *** Search for a Patient ***
+
+
 You can search for a patient using their first and last name.
 
 ![Alt text](Demo/search.png)
