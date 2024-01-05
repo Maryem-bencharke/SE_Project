@@ -7,19 +7,17 @@ if(!isset($_SESSION["userID"])){
     header("Location: ../../index.php");
     exit();
 }
-// check: if the user is a nurse
+// check: if the user is a doctor
 if($_SESSION["role"] != "doctor"){
     header("Location: ../../index.php");
     exit();
 }
 if (isset($_SESSION['success_message'])) {
-    // Display the message in a Bootstrap alert box
     echo "<div id='successAlert' class='alert alert-success alert-dismissible fade show' role='alert'>";
     echo htmlspecialchars($_SESSION['success_message']);
     echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
     echo "</div>";
 
-    // Unset the session variable after displaying the message
     unset($_SESSION['success_message']);
 }
 

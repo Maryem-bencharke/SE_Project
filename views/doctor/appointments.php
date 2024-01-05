@@ -7,12 +7,16 @@ if(!isset($_SESSION["userID"])){
     header("Location: ../../index.php");
     exit();
 }
-// check: if the user is a nurse
+// check: if the user is a doctor
 if($_SESSION["role"] != "doctor"){
     header("Location: ../../index.php");
     exit();
 }
+$appointmentDAO = new AppointmentDAOImpl();
+$doctorId = $_SESSION['userID']; 
+$date = date('Y-m-d');
 
+$appointments = $appointmentDAO->getAppointmentsPerDay($doctorId, $date);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -52,7 +56,6 @@ if($_SESSION["role"] != "doctor"){
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <!-- <button type="button" class="btn btn-danger">Logout</button> -->
                             <a href="../../logout.php" class="btn btn-danger btn-block">Logout</a>
                         </div>
                         </div>
@@ -63,14 +66,29 @@ if($_SESSION["role"] != "doctor"){
         </nav>
     </header>
     <main>
-    
-        <div class ="m-4">
-          
-               
-
-                      
+    <div class="m-4">
+            <h2>Appointments for <?php echo htmlspecialchars($date); ?></h2>
+            <?php if (!empty($appointments)): ?>
+                <table>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Patient ID</th>
+                        <th>Appointment Date</th>
+                        <th>Status</th>
+                    </tr>
+                    <?php foreach ($appointments as $appointment): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($appointment['AppointmentID']); ?></td>
+                            <td><?php echo htmlspecialchars($appointment['PatientID']); ?></td>
+                            <td><?php echo htmlspecialchars($appointment['AppointmentDate']); ?></td>
+                            <td><?php echo htmlspecialchars($appointment['Status']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php else: ?>
+                <p>No appointments found for this date.</p>
+            <?php endif; ?>
         </div>
-      
     </main>
 </body>
 <!-- js -->

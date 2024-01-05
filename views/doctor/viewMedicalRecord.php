@@ -7,7 +7,7 @@ if(!isset($_SESSION["userID"])){
     header("Location: ../../index.php");
     exit();
 }
-// check: if the user is a nurse
+// check: if the user is a doctor
 if($_SESSION["role"] != "doctor"){
     header("Location: ../../index.php");
     exit();
@@ -65,33 +65,27 @@ if($_SESSION["role"] != "doctor"){
     <main>
     
         <div class ="m-4">
-        <?php /*
+        <?php
         $medicalRecordDAO = new MedicalRecordDaoImpl();
         $patientID = $_GET['id'] ?? null;
         if ($patientID) {
             $medicalRecord = $medicalRecordDAO->getMedicalRecordByPatientId($patientID);
-            // Now $medicalRecord contains the medical record details of the patient
         } else {
             echo "No patient selected.";
             exit;
         }  
         if ($medicalRecord) {
-            // Get the RecordID from the fetched medical record
-            $recordId = $medicalRecord['RecordID']; // Make sure the key matches your database column name
+            $recordId = $medicalRecord['RecordID']; 
         
-            // Now use readMedicalRecord to get the full details of the medical record
             $fullMedicalRecord = $medicalRecordDAO->readMedicalRecord($recordId);
         
-            // Use $fullMedicalRecord as needed
         } else {
-            // Handle the case where no medical record is found for the patient
             echo "No medical record found for the given patient ID.";
         }
 
 
 
         if (isset($fullMedicalRecord) && $fullMedicalRecord) {
-            // Display the medical record details in a form-like structure
             echo "<div class='medical-record-details'>";
             echo "<h3>Medical Record Details</h3>";
         
@@ -110,9 +104,7 @@ if($_SESSION["role"] != "doctor"){
             echo "<input type='text' class='form-control' id='testResults' value='" . htmlspecialchars($fullMedicalRecord['TestResults']) . "' readonly>";
             echo "</div>";
         
-            // If image data is available
             if (!empty($fullMedicalRecord['ImageData'])) {
-                // Display the image (assuming it's stored in base64 format)
                 echo "<div class='mb-3'>";
                 echo "<label for='imageData' class='form-label'>Image:</label><br>";
                 echo "<img src='data:image/jpeg;base64," . base64_encode($fullMedicalRecord['ImageData']) . "' alt='Medical Image'>";
@@ -135,11 +127,10 @@ if($_SESSION["role"] != "doctor"){
             echo "</div>";
         
             echo "</div>";
-            echo "<a href='updateMedicalRecord.php?id=<?php echo htmlspecialchars($fullMedicalRecord->getPatientId()); ?>' class='btn btn-warning btn-sm'>Update Record</a>";
 
         } else {
             echo "<p>No detailed medical record found.</p>";
-        }*/?>
+        }?>
 
 
                       

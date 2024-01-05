@@ -7,7 +7,7 @@ if(!isset($_SESSION["userID"])){
     header("Location: ../../index.php");
     exit();
 }
-// check: if the user is a nurse
+// check: if the user is a doctor
 if($_SESSION["role"] != "doctor"){
     header("Location: ../../index.php");
     exit();
@@ -67,13 +67,10 @@ if($_SESSION["role"] != "doctor"){
         <?php
 
 $patientDao = new PatientDaoImpl();
-$patientID = $_GET['id'] ?? null; // Use null coalescing operator for PHP 7+
-//$firstName = urldecode($_GET['fn'] ?? '');
-//$lastName = urldecode($_GET['ln'] ?? '');
+$patientID = $_GET['id'] ?? null; 
 
 if ($patientID) {
-    $patient = $patientDao->getPatientById($patientID); // Assuming you have this method
-    // Now $patient contains the patient's details
+    $patient = $patientDao->getPatientById($patientID); 
      if (isset($patient)) {?> 
         <form action="processUpdatePatient.php" method="post">
         <input type="hidden" name="patientID" value="<?php echo htmlspecialchars($patient->getPatientID()); ?>">
@@ -155,12 +152,12 @@ if ($patientID) {
 
 
         <button type="submit" class="btn btn-primary">Update Patient</button>
-        <a href='viewMedicalRecord.php?id=<?php echo htmlspecialchars($patient->getPatientID()); ?>' class='btn btn-warning btn-sm'>Medical Record</a>
     </form>
     <?php  
     } 
 
-}?>
+}
+?>
 
 
 

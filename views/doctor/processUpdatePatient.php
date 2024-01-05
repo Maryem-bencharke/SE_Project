@@ -7,7 +7,7 @@ if(!isset($_SESSION["userID"])){
     header("Location: ../../index.php");
     exit();
 }
-// check: if the user is a nurse
+// check: if the user is a doctor
 if($_SESSION["role"] != "doctor"){
     header("Location: ../../index.php");
     exit();
@@ -68,13 +68,12 @@ if($_SESSION["role"] != "doctor"){
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $patientDao = new PatientDaoImpl();
 
-    // Extract and sanitize input
     $patientID = $_POST['patientID'];
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $birthDate = $_POST['birthdate'];
-    $cin = htmlspecialchars($_POST['cin']);  // Sanitization is done at the DAO level
-    $phoneNumber = htmlspecialchars($_POST['phonenumber']);  // Sanitization is done at the DAO level
+    $cin = htmlspecialchars($_POST['cin']);  
+    $phoneNumber = htmlspecialchars($_POST['phonenumber']);  
     $address = htmlspecialchars($_POST['address']);  
     $bloodgroup = htmlspecialchars($_POST['bloodgroup']);  
     $gender = htmlspecialchars($_POST['gender']);  
@@ -96,15 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-    //$gender
-
-    //$bloodType
-     
-            // Sanitization is done at the DAO level
-
-    // ... retrieve other fields ...
-
-    // Create a Patient object
+    
     $patient = new Patient(
         $patientID,
         $firstName,
@@ -131,17 +122,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         
 
-        // ... other fields ...
+      
     );
 
-    // Update patient details using the DAO method
     try {
         $patientDao->updatePatient($patient);
-        //echo "Patient updated successfully.";
         $_SESSION['success_message'] = "Patient updated successfully.";
         echo "<script>window.location.href = 'patients.php';</script>";
 
-        // Redirect or offer a link back to the dashboard
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }

@@ -5,7 +5,7 @@ if(!isset($_SESSION["userID"])){
     header("Location: ../../index.php");
     exit();
 }
-// check: if the user is a nurse
+// check: if the user is a doctor
 if($_SESSION["role"] != "doctor"){
     header("Location: ../../index.php");
     exit();
@@ -46,7 +46,6 @@ if($_SESSION["role"] != "doctor"){
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <!-- <button type="button" class="btn btn-danger">Logout</button> -->
                             <a href="../../logout.php" class="btn btn-danger btn-block">Logout</a>
                         </div>
                         </div>
@@ -67,12 +66,10 @@ if($_SESSION["role"] != "doctor"){
 
                 <div class="col-6">
                     <h4>Patients</h4>
-                    <!-- button to show all the patients -->
                     <a href="patients.php" class="btn btn-primary" >View patient record management</a>
                 </div>
                 <div class="col-6">
                     <h4>Appointments</h4>
-                    <!-- button to show all the patients -->
                     <a href="appointments.php" class="btn btn-primary" >Get appointment per day</a>
                 </div>
                 
