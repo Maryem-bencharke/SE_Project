@@ -12,7 +12,16 @@ if($_SESSION["role"] != "nurse"){
     header("Location: ../../index.php");
     exit();
 }
-
+if (isset($_SESSION["success_message"])){
+    if ($_SESSION["success_message"] == true){
+        $successMessage = "Patient information updated successfully.";
+        $_SESSION["success_message"] = false;
+    }
+}
+if (isset($_SESSION["message"])){
+    $successMessage = $_SESSION["message"];
+    $_SESSION["message"] = null;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -28,6 +37,14 @@ if($_SESSION["role"] != "nurse"){
     <title>Hospital</title>
 </head>
 <body>
+        <?php if (!empty($successMessage)): ?>
+        <div class="container mt-4">
+
+            <div class="alert alert-success" role="alert">
+                <?php echo $successMessage; ?>
+            </div>
+        </div>
+        <?php endif; ?>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
             <div class="container">
@@ -39,6 +56,14 @@ if($_SESSION["role"] != "nurse"){
                     </li>
                     </ul>
                 </div>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="./addPatient.php" class="nav-link btn btn-success text-white" >Add Patient</a>
+                        </li>
+                    </ul>
+                </div>
+
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logout">Logout</button>
                 <div class="modal fade" id="logout" tabindex="-1" aria-labelledby="logoutLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -52,17 +77,19 @@ if($_SESSION["role"] != "nurse"){
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <!-- <button type="button" class="btn btn-danger">Logout</button> -->
                             <a href="../../logout.php" class="btn btn-danger btn-block">Logout</a>
                         </div>
                         </div>
                     </div>
                 </div>
+
                
             </div>
         </nav>
     </header>
     <main>
+        <!-- add patient -->
+
         <div class ="m-4">
             <table id ="patients" class ="table table-striped table-bordered table-sm" cellspacing="0" width = "100%">
                 <thead>
@@ -73,12 +100,16 @@ if($_SESSION["role"] != "nurse"){
                         <th class ="th-sm">Date of Birth</th>
                         <th class ="th-sm">Blood Group</th>
                         <th class ="th-sm">Phone Number</th>
+                        <th class="th-sm">Actions</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                         $patientDao = new PatientDaoImpl();
                         $patients = $patientDao->getAllPatients();
+                        if ($patients == null) echo "<tr><td colspan='7'>No patients found</td></tr>";
+                       
                         foreach($patients as $patient){
                             echo "<tr>";
                             $cin = $patient->getCIN();
@@ -94,6 +125,8 @@ if($_SESSION["role"] != "nurse"){
                             echo "<td>" .$dateOfBirth . "</td>";
                             echo "<td>" . $bloodGroup . "</td>";
                             echo "<td>" . $phoneNumber . "</td>";
+                            echo "<td><a href='updatePatient.php?id=" . $patient->getPatientID() . "' class='btn btn-warning btn-sm'>Update</a>
+                            </td>";
                             echo "</tr>";
                         }
                     ?>

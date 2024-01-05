@@ -46,13 +46,16 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
                     $stmt->bindParam(":EmergencyContactBloodGroup", $emergencyContactBloodGroup, PDO::PARAM_STR);
                     $stmt->bindParam(":EmergencyContactCIN", $emergencyContactCIN, PDO::PARAM_STR);
                     $stmt->execute();
+                    return true;
                 }
                 catch(PDOException $e){
                     echo $e->getMessage();
+                    return false;
                 }
             }
             catch(PDOException $e){
                 echo $e->getMessage();
+                return false;
             }
         }
         else{
@@ -84,7 +87,7 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
                 $emergencyContactCIN = $patient->getEmergencyContactCIN();
                 try{
                     // $sql = "UPDATE patient SET CIN=:CIN, BirthDate=:BirthDate, FirstName=:FirstName, LastName=:LastName, Email=:Email, PhoneNumber=:Phone, BloodGroup=:BloodGroup, Address=:Address, Allergies=:Allergies, emergencyContactName=:EmergencyContactName, emergencyContactPhone=:EmergencyContactPhone, emergencyContactEmail=:EmergencyContactEmail, emergencyContactAddress=:EmergencyContactAddress, emergencyContactRelation=:EmergencyContactRelation, emergencyContactBloodGroup=:EmergencyContactBloodGroup WHERE PatientID=:PatientID";
-                    $sql ="UPDATE patient SET CIN=:CIN, BirthDate=:BirthDate, FirstName=:FirstName, LastName=:LastName,Gender=:Gender, Email=:Email, PhoneNumber=:PhoneNumber, BloodGroup=:BloodGroup, Address=:Address, Allergies=:Allergies,InsuranceInfo=:InsuranceInfo,  emergencyContactName=:EmergencyContactName, emergencyContactPhone=:EmergencyContactPhone, emergencyContactEmail=:EmergencyContactEmail, emergencyContactAddress=:EmergencyContactAddress, emergencyContactRelation=:EmergencyContactRelation, emergencyContactBloodGroup=:EmergencyContactBloodGroup , emergencyContactCIN=:EmergencyContactCIN, WHERE PatientID=:PatientID";
+                    $sql ="UPDATE patient SET CIN=:CIN, BirthDate=:BirthDate, FirstName=:FirstName, LastName=:LastName,Gender=:Gender, Email=:Email, PhoneNumber=:PhoneNumber, BloodGroup=:BloodGroup, Address=:Address, Allergies=:Allergies,InsuranceInfo=:InsuranceInfo,  emergencyContactName=:EmergencyContactName, emergencyContactPhone=:EmergencyContactPhone, emergencyContactEmail=:EmergencyContactEmail, emergencyContactAddress=:EmergencyContactAddress, emergencyContactRelation=:EmergencyContactRelation, emergencyContactBloodGroup=:EmergencyContactBloodGroup , emergencyContactCIN=:EmergencyContactCIN WHERE PatientID=:PatientID";
                     $stmt = $this->_connection->prepare($sql);
                     $stmt->bindParam(":CIN", $CIN, PDO::PARAM_STR);
                     $stmt->bindParam(":BirthDate", $birthDate, PDO::PARAM_STR);
@@ -106,17 +109,22 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
                     $stmt->bindParam(":EmergencyContactCIN", $emergencyContactCIN, PDO::PARAM_STR);
                     $stmt->bindParam(":PatientID", $patientID, PDO::PARAM_INT);
                     $stmt->execute();
+                    return true;
                 }
                 catch(PDOException $e){
+
                     echo $e->getMessage();
+                    return false;
                 }
             }
             catch(PDOException $e){
                 echo $e->getMessage();
+                return false;
             }
         }
         else{
             throw new Exception("Not an instance of Patient");
+            return false;
         }
     }
 
@@ -233,12 +241,50 @@ class PatientDAOImpl extends AbstractDAO implements PatientDAO{
                     $row['InsuranceInfo'],
                     $row['emergencyContactName'],
                     $row['emergencyContactPhone'],
-                    $row['emergencyContactEmail'],
                     $row['emergencyContactAddress'],
+                    $row['emergencyContactEmail'],
                     $row['emergencyContactRelation'],
                     $row['emergencyContactBloodGroup'],
                     $row['emergencyContactCIN']
-                    // Add any other fields that your Patient class requires
+                );
+                return $patient;
+            }
+            return null;
+        } catch (PDOException $e) {
+            // Handle exception
+            echo $e->getMessage();
+            return null;
+        }
+    }
+    public function getPatientByCIN($patientCIN){
+        try {
+            $sql = "SELECT * FROM patient WHERE CIN = :PatientCIN";
+            $stmt = $this->_connection->prepare($sql);
+            $stmt->bindParam(":PatientCIN", $patientCIN, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($row) {
+                $patient = new Patient(
+                    $row['PatientID'],
+                    $row['FirstName'],
+                    $row['LastName'],
+                    $row['BirthDate'],
+                    $row['Gender'],
+                    $row['BloodGroup'],
+                    $row['PhoneNumber'],
+                    $row['Address'],
+                    $row['Allergies'],
+                    $row['Email'],
+                    $row['CIN'],
+                    $row['InsuranceInfo'],
+                    $row['emergencyContactName'],
+                    $row['emergencyContactPhone'],
+                    $row['emergencyContactAddress'],
+                    $row['emergencyContactEmail'],
+                    $row['emergencyContactRelation'],
+                    $row['emergencyContactBloodGroup'],
+                    $row['emergencyContactCIN']
                 );
                 return $patient;
             }

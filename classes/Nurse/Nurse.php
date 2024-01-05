@@ -1,6 +1,7 @@
 <?php
-require_once '../User/User.php';
-require_once '../Patient/Patient.php';
+require_once(__DIR__ . '\..\User\User.php');
+require_once(__DIR__ .  '\../Patient/Patient.php');
+
 //require 'AppointmentDAO.php';
 //max appointment per day for a doctor are 10
 class Nurse extends User{
