@@ -4,7 +4,7 @@
 The Hospital Patient Archive Management Platform is a comprehensive digital system designed to streamline the management of patient records and archives within a healthcare facility. This platform provides an efficient way to handle patient information, enhancing the workflow within medical institutions.
 ## Getting Started 
 ### Prerequisites: 
-Visual Studio Code (VS Code)
+
 WAMP Server
 
 ## Usage  
