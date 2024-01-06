@@ -81,7 +81,7 @@ if ($_SESSION["role"] != "administrator") {
             <tbody>
                 <?php
                     $adminDao = new AdministratorDAOImpl();
-                    //$administrators = $adminDao->getAllAdministrators(); 
+                    $administrators = $adminDao->getAllAdministrators(); 
                     foreach ($administrators as $administrator) {
                         echo "<tr>";
                         // Retrieve administrator details

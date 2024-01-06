@@ -112,7 +112,30 @@ class AdministratorDAOImpl extends AbstractDAO implements AdministratorDAO {
             throw new Exception("Not an instance of Administrator");
         }
     }
-}
-
+        public function getAllAdministrators() {
+            $administrators = array();
+            try {
+                $sql = "SELECT * FROM Administrator";
+                $stmt = $this->_connection->prepare($sql);
+                $stmt->execute();
+    
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $administrator = new Administrator(
+                        $row['AdminID'],
+                        $row['Username'],
+                        $row['Password'],
+                        $row['Email'],
+                        $row['PhoneNumber'],
+                        $row['Address'],
+                        $row['CIN']
+                    );
+                    array_push($administrators, $administrator);
+                }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            return $administrators;
+        }
+    }
 
 ?>
