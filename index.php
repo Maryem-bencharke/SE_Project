@@ -119,7 +119,7 @@
                         $hashed_password = $result['Password'];
                         // if (password_verify($_POST['psd'], $result['Password'])) {
                             if ($_POST['psd'] == $result['Password']) {
-                            $_SESSION["userID"] = $result["AdministratorID"];
+                            $_SESSION["userID"] = $result["AdminID"];
                             $_SESSION["USER_NAME"] = $result["Username"];   
                             $_SESSION["role"] = $role; 
 
