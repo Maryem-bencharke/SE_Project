@@ -90,3 +90,21 @@ From the nurse's dashboard, you can view and manage appointments.
 Nurses can schedule new appointments.
 ![Alt text](Demo/addApp.png)
 
+### Admin's Dashboard 
+
+
+![Alt text](Demo/adminDash.png)
+
+###   Manage doctors
+Admin can Manage doctors
+
+![Alt text](Demo/manage1.png)
+
+###   Manage nurses
+Admin can Manage nurses
+
+![Alt text](Demo/manage2.png)
+###   Manage admins
+Admin can Manage admins
+
+![Alt text](Demo/manage3.png)
