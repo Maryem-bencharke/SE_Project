@@ -63,42 +63,17 @@ if ($_SESSION["role"] != "administrator") {
         </nav>
     </header>
     <main class="container">
-        <h3>Manage Administrators</h3>
-        <div class="actions mb-3">
-            <button class="btn btn-success" onclick="addAdministrator()">Add New Administrator</button>
-        </div>
-        <table id="administrators" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>CIN</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Address</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    $adminDao = new AdministratorDAOImpl();
-                    $administrators = $adminDao->getAllAdministrators(); 
-                    foreach ($administrators as $administrator) {
-                        echo "<tr>";
-                        // Retrieve administrator details
-                        echo "<td>" . $administrator->getCIN() . "</td>";
-                        echo "<td>" . $administrator->getName() . "</td>";
-                        echo "<td>" . $administrator->getEmail() . "</td>";
-                        echo "<td>" . $administrator->getPhoneNumber() . "</td>";
-                        echo "<td>" . $administrator->getAddress() . "</td>";             
-                        echo "<td>
-                                <button onclick='editAdministrator(\"" . $administrator->getCIN() . "\")' class='btn btn-primary btn-sm'>Edit</button>
-                                <button onclick='deleteAdministrator(\"" . $administrator->getCIN() . "\")' class='btn btn-danger btn-sm'>Delete</button>
-                              </td>";
-                        echo "</tr>";
-                    }
-                ?>
-            </tbody>
-        </table>
+        <h3>Add New Administrator</h3>
+        <form action="addAdministrator.php" method="post">
+            <!-- Input fields for administrator details -->
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="email" name="email" placeholder="Email">
+            <input type="text" name="phoneNumber" placeholder="Phone Number">
+            <input type="text" name="address" placeholder="Address">
+            <input type="text" name="CIN" placeholder="CIN" required>
+            <button type="submit">Add Administrator</button>
+        </form>
     </main>
     <!-- JavaScript for handling actions -->
     <script src="../../js/Administrator/Administrator.js"></script>

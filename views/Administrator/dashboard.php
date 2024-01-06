@@ -63,18 +63,13 @@ require_once "../../classes/Administrator/AdministratorDAOImpl.php";
             </div>
         </nav>
         </header>
-    <main class="container">
-        <h3>Welcome, <?php echo $_SESSION["USER_NAME"]; ?></h3>
-        <div class="dashboard-section">
-            <h4>Manage Users</h4>
-            <a href="doctors.php" class="btn btn-primary">Manage Doctors</a>
-            <a href="nurses.php" class="btn btn-primary">Manage Nurses</a>
-            <a href="administrators.php" class="btn btn-primary">Manage Administrators</a>
-        </div>
-        <!-- <div class="dashboard-section">
-            <h4>Reports</h4>
-            <a href="generate_reports.php" class="btn btn-primary">Generate Reports</a>
-        </div> -->
-    </main>
+        <main class="container">
+    <h3>Welcome, <?php echo $_SESSION["USER_NAME"]; ?></h3>
+    <div class="dashboard-section">
+        <a href="doctors.php" class="btn btn-primary">Manage Doctors</a>
+        <a href="nurses.php" class="btn btn-primary">Manage Nurses</a>
+        <a href="administrators.php" class="btn btn-primary">Manage Administrators</a>
+    </div>
+</main>
 </body>
 </html>

@@ -8,4 +8,11 @@ if (document.getElementById('successAlert')) {
         $('#successAlert').alert('close');
     }, 5000);
 }
+// function addAdministrator() {
+//     document.getElementById('newAdministratorForm').style.display = 'block';
+// }
+
+// function addAdministrator() {
+//     window.location.href = 'path'; // Update with the actual path
+// }
 
