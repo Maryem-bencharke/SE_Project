@@ -12,9 +12,12 @@ if (!isset($_SESSION["userID"]) || $_SESSION["role"] != "administrator") {
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Similar data handling as in addDoctor.php
-    // ...
-
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']); // Consider hashing the password
+    $email = htmlspecialchars($_POST['email']);
+    $phoneNumber = htmlspecialchars($_POST['phoneNumber']);
+    $address = htmlspecialchars($_POST['address']);
+    $CIN = htmlspecialchars($_POST['CIN']);
     $nurse = new Nurse(null, $username, $password, $email, $address, $phoneNumber, $CIN);
     $nurseDao = new NurseDAOImpl();
 
