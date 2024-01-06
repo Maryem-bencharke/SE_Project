@@ -14,9 +14,9 @@ if($_SESSION["role"] != "administrator"){
 }
 
 require_once '../../db/db.php';
-require_once '../../classes/AdministratorDAOImpl.php';
+require_once "../../classes/Administrator/AdministratorDAOImpl.php";
 
-$adminDao = new AdministratorDAOImpl();
+// $adminDao = new AdministratorDAOImpl();
 
 ?>
 <!DOCTYPE html>
