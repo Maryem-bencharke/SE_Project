@@ -6,10 +6,6 @@ The Hospital Patient Archive Management Platform is a comprehensive digital syst
 ### Prerequisites: 
 Visual Studio Code (VS Code)
 WAMP Server
-### Installation: 
-Run the DDL script to create the database.
-Execute the test script for each class to populate the database.
-Open your localhost in a web browser and select the project to access the dashboard.
 
 ## Usage  
 ### Dashboard  
