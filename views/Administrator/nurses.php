@@ -71,7 +71,7 @@ if ($_SESSION["role"] != "administrator") {
             <thead>
                 <tr>
                     <th>CIN</th>
-                    <th>Username</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Phone Number</th>
                     <th>Address</th>
@@ -81,12 +81,12 @@ if ($_SESSION["role"] != "administrator") {
             <tbody>
                 <?php
                     $nurseDao = new NurseDAOImpl();
-                    //$nurses = $nurseDao->getAllNurses(); 
+                    $nurses = $nurseDao->getAllNurses(); 
                     foreach ($nurses as $nurse) {
                         echo "<tr>";
                         // Retrieve nurse details
                         echo "<td>" . $nurse->getCIN() . "</td>";
-                        echo "<td>" . $nurse->getUsername() . "</td>";
+                        echo "<td>" . $nurse->getName() . "</td>";
                         echo "<td>" . $nurse->getEmail() . "</td>";
                         echo "<td>" . $nurse->getPhoneNumber() . "</td>";
                         echo "<td>" . $nurse->getAddress() . "</td>";             

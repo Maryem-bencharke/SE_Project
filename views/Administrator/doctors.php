@@ -71,7 +71,7 @@ if ($_SESSION["role"] != "administrator") {
             <thead>
                 <tr>
                     <th>CIN</th>
-                    <th>Username</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Phone Number</th>
                     <th>Address</th>
@@ -80,16 +80,15 @@ if ($_SESSION["role"] != "administrator") {
             <tbody>
                 <?php
                     $doctorDao = new DoctorDAOImpl();
-                    //$doctors = $doctorDao->getAllDoctors(); 
+                    $doctors = $doctorDao->getAllDoctors(); 
                     foreach ($doctors as $doctor) {
                         echo "<tr>";
                         // Retrieve doctor details
                         echo "<td>" . $doctor->getCIN() . "</td>";
-                        echo "<td>" . $doctor->getUsername() . "</td>";
+                        echo "<td>" . $doctor->getName() . "</td>";
                         echo "<td>" . $doctor->getEmail() . "</td>";
                         echo "<td>" . $doctor->getPhoneNumber() . "</td>";
                         echo "<td>" . $doctor->getAddress() . "</td>";
-                        echo "<td>" . $doctor->getUsername() . "</td>";                
                         echo "<td>
                                 <button onclick='editDoctor(\"" . $doctor->getCIN() . "\")' class='btn btn-primary btn-sm'>Edit</button>
                                 <button onclick='deleteDoctor(\"" . $doctor->getCIN() . "\")' class='btn btn-danger btn-sm'>Delete</button>

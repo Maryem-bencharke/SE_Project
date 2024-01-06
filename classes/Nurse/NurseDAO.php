@@ -5,5 +5,6 @@ interface NurseDAO{
     public function updateNurse($nurse);
     public function deleteNurse($id);
     public function addNurse($nurse);
+    public function getAllNurses();
 }
 ?>

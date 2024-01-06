@@ -86,7 +86,7 @@ if ($_SESSION["role"] != "administrator") {
                         echo "<tr>";
                         // Retrieve administrator details
                         echo "<td>" . $administrator->getCIN() . "</td>";
-                        echo "<td>" . $administrator->getUsername() . "</td>";
+                        echo "<td>" . $administrator->getName() . "</td>";
                         echo "<td>" . $administrator->getEmail() . "</td>";
                         echo "<td>" . $administrator->getPhoneNumber() . "</td>";
                         echo "<td>" . $administrator->getAddress() . "</td>";             

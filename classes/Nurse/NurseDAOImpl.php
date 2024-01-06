@@ -156,5 +156,32 @@ class NurseDAOImpl extends AbstractDAO implements NurseDAO{
             return null;
         }
     }
-}
+    public function getAllNurses() {
+            $nurses = array();
+            try {
+                $sql = "SELECT * FROM Nurse";
+                $stmt = $this->_connection->prepare($sql);
+                $stmt->execute();
+    
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $nurse = new Nurse(
+                        $row['NurseID'],
+                        $row['Username'],
+                        $row['Password'],
+                        $row['Email'],
+                        $row['PhoneNumber'],
+                        $row['Address'],
+                        $row['CIN']
+                    );
+                    array_push($nurses, $nurse);
+                }
+            } catch (PDOException $e) {
+                // Handle exception
+                echo "Error: " . $e->getMessage();
+            }
+            return $nurses;
+        }
+    }
+    
+
 ?>

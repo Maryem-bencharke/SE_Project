@@ -4,5 +4,6 @@ interface DoctorDAO {
     public function getDoctor($cin);
     public function updateDoctor($doctor);
     public function deleteDoctor($doctor);
+    public function getAllDoctors();
 }
 ?>
