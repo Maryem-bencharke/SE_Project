@@ -11,7 +11,7 @@
             exit();
         }
         if($_SESSION["role"] == "administrator"){
-            header("Location: views/administrator/dashboard.php");
+            header("Location: views/Administrator/dashboard.php");
             exit();
         }
     }
@@ -123,7 +123,7 @@
                             $_SESSION["USER_NAME"] = $result["Username"];   
                             $_SESSION["role"] = $role; 
 
-                            header("location: views/administrator/dashboard.php");                      
+                            header("location: views/Administrator/dashboard.php");                      
                             
                         } else {
                             $psdError = "Invalid password.";
