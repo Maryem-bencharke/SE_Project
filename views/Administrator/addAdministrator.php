@@ -67,6 +67,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="address" placeholder="Address">
             <input type="text" name="CIN" placeholder="CIN" required>
             <button type="submit" class="btn btn-primary">Add Administrator</button>
+            <!-- Back to Dashboard Button -->
+            <a href="./dashboard.php" class="btn btn-secondary mt-3">Back to Dashboard</a>
         </form>
     </div>
 </body>

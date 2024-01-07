@@ -1,12 +1,12 @@
 <?php
-require_once '../User/User.php';
-require_once '../Nurse/Nurse.php';
-require_once '../Doctor/Doctor.php';
-require_once '../Doctor/DoctorDAO.php';
-require_once '../Doctor/DoctorDAOImpl.php';
-require_once '../Nurse/Nurse.php';
-require_once '../Nurse/NurseDAO.php';
-require_once '../Nurse/NurseDAOImpl.php';
+require_once __DIR__ . '/../User/User.php';
+require_once __DIR__ . '/../Nurse/Nurse.php';
+require_once __DIR__ . '/../Doctor/Doctor.php';
+require_once __DIR__ . '/../Doctor/DoctorDAO.php';
+require_once __DIR__ . '/../Doctor/DoctorDAOImpl.php';
+require_once __DIR__ . '/../Nurse/Nurse.php';
+require_once __DIR__ . '/../Nurse/NurseDAO.php';
+require_once __DIR__ . '/../Nurse/NurseDAOImpl.php';
 
 
 class Administrator extends User {
