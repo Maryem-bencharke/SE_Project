@@ -39,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <title>Add Administrator</title>
     <meta charset="UTF-8">
-    <title>Add Doctor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../css/Administrator/Administartor.css">
@@ -49,27 +48,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <?php
-    // Display success or error message
-    if (!empty($message)) {
-        echo "<div class='alert alert-info'>";
-        echo htmlspecialchars($message);
-        echo "</div>";
-    }
-    ?>
+    <?php if (!empty($message)): ?>
+        <div class='alert alert-info'><?= $message ?></div>
+    <?php endif; ?>
 
     <div class="container">
-        <form action="addAdministrator.php" method="post">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="email" name="email" placeholder="Email">
-            <input type="text" name="phoneNumber" placeholder="Phone Number">
-            <input type="text" name="address" placeholder="Address">
-            <input type="text" name="CIN" placeholder="CIN" required>
-            <button type="submit" class="btn btn-primary">Add Administrator</button>
-            <!-- Back to Dashboard Button -->
-            <a href="./dashboard.php" class="btn btn-secondary mt-3">Back to Dashboard</a>
-        </form>
-    </div>
+    <!-- Form for adding doctor -->
+    <form action="addAdministrator.php" method="post">
+        <!-- Input fields for doctor details -->
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" name="username" id="username" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" name="password" id="password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" name="email" id="email">
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" class="form-control" name="phoneNumber" id="phoneNumber">
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control" name="address" id="address">
+        </div>
+
+        <div class="form-group">
+            <label for="CIN">CIN:</label>
+            <input type="text" class="form-control" name="CIN" id="CIN" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Administrator</button>
+        <!-- Back to Dashboard Button -->
+        <a href="./administrators.php" class="btn btn-secondary mt-3">Back to Admin</a>
+    </form>
+</div>
+
 </body>
 </html>

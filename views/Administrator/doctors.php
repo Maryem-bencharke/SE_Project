@@ -65,7 +65,8 @@ if ($_SESSION["role"] != "administrator") {
     <main class="container">
         <h3>Manage Doctors</h3>
         <div class="actions mb-3">
-            <button class="btn btn-success" onclick="addDoctor()">Add New Doctor</button>
+        <a href="addDoctor.php" class="btn btn-primary">Add New Doctor</a>
+
         </div>
         <table id="doctors" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
@@ -83,16 +84,14 @@ if ($_SESSION["role"] != "administrator") {
                     $doctors = $doctorDao->getAllDoctors(); 
                     foreach ($doctors as $doctor) {
                         echo "<tr>";
-                        // Retrieve doctor details
-                        echo "<td>" . $doctor->getCIN() . "</td>";
-                        echo "<td>" . $doctor->getName() . "</td>";
-                        echo "<td>" . $doctor->getEmail() . "</td>";
-                        echo "<td>" . $doctor->getPhoneNumber() . "</td>";
-                        echo "<td>" . $doctor->getAddress() . "</td>";
-                        echo "<td>
-                                <button onclick='editDoctor(\"" . $doctor->getCIN() . "\")' class='btn btn-primary btn-sm'>Edit</button>
-                                <button onclick='deleteDoctor(\"" . $doctor->getCIN() . "\")' class='btn btn-danger btn-sm'>Delete</button>
-                              </td>";
+                        echo "<td>" . htmlspecialchars($doctor->getCIN()) . "</td>";
+                        echo "<td>" . htmlspecialchars($doctor->getName()) . "</td>";
+                        echo "<td>" . htmlspecialchars($doctor->getEmail()) . "</td>";
+                        echo "<td>" . htmlspecialchars($doctor->getPhoneNumber()) . "</td>";
+                        echo "<td>" . htmlspecialchars($doctor->getAddress()) . "</td>";
+                        // Edit link
+                        echo "<td><a href='updateDoctor.php?doctorID=" . $doctor->getUserID() . "' class='btn btn-primary btn-sm'>Edit</a>";                      
+                         echo "<a href='deleteDoctor.php?doctorID=" . $doctor->getUserID() . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this doctor?\");'>Delete</a></td>";
                         echo "</tr>";
                     }
                 ?>

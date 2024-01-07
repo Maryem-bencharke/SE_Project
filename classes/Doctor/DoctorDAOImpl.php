@@ -79,9 +79,9 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
             try {
                 $doctorID = $doctor->getUserID();
                 $username = $doctor->getName();
-                if ($this->usernameExists($username)) {
-                    throw new Exception("Username already exists. Please choose a different username.");
-                }
+                // if ($this->usernameExists($username)) {
+                //     throw new Exception("Username already exists. Please choose a different username.");
+                // }
                 $email = $doctor->getEmail();
                 $phoneNumber = $doctor->getPhoneNumber();
                 $address = $doctor->getAddress();

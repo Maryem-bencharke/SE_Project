@@ -136,6 +136,28 @@ class AdministratorDAOImpl extends AbstractDAO implements AdministratorDAO {
             }
             return $administrators;
         }
+        
+        public function getAdministratorById($adminID) {
+            $sql = "SELECT * FROM Administrator WHERE AdminID = :AdminID";
+            $stmt = $this->_connection->prepare($sql);
+            $stmt->bindParam(":AdminID", $adminID, PDO::PARAM_INT);
+    
+            if ($stmt->execute()) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($row) {
+                    return new Administrator(
+                        $row['AdminID'],
+                        $row['Username'],
+                        $row['Password'], // Note: Storing plaintext passwords is not secure
+                        $row['Email'],
+                        $row['PhoneNumber'],
+                        $row['Address'],
+                        $row['CIN']
+                    );
+                }
+            }
+            return null; // Return null if no administrator is found
+        }
     }
 
 ?>

@@ -53,48 +53,44 @@ class NurseDAOImpl extends AbstractDAO implements NurseDAO{
     }
     public function updateNurse($nurse){
         if ($nurse instanceof Nurse){
-            try{
-                // Check if the new username already exists (excluding the current record)
-                $checkQuery = "SELECT COUNT(*) FROM nurse WHERE Username = :Username AND NurseId != :userID";
-                $checkStmt = $this->_connection->prepare($checkQuery);
-                $name = $nurse->getName();
-                $checkStmt->bindParam(':Username', $name);
-                $userID = $nurse->getUserID();
-                $checkStmt->bindParam(':userID', $userID);
-                $checkStmt->execute();
-                $rowCount = $checkStmt->fetchColumn();
+       
+    try {
+        $nurseID = $nurse->getUserID();
+        $username = $nurse->getName();
+        // if ($this->usernameExists($username)) {
+        //     throw new Exception("Username already exists. Please choose a different username.");
+        // }
+        $email = $nurse->getEmail();
+        $phoneNumber = $nurse->getPhoneNumber();
+        $address = $nurse->getAddress();
+        $cin = $nurse->getCIN();
 
-                if ($rowCount > 0) {
-                    throw new Exception("New username already exists");
+    try {
+        $sql = "UPDATE Nurse SET Username=:Username, Email=:Email, PhoneNumber=:PhoneNumber, Address=:Address WHERE NurseID=:NurseID";
+        $stmt = $this->_connection->prepare($sql);
+
+        $stmt->bindParam(":Username", $username, PDO::PARAM_STR);
+        $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
+        $stmt->bindParam(":PhoneNumber", $phoneNumber, PDO::PARAM_STR);
+        $stmt->bindParam(":Address", $address, PDO::PARAM_STR);
+        $stmt->bindParam(":NurseID", $nurseID, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+        catch(PDOException $e){
+            echo $e->getMessage();
+        }
+                    }
+                    catch(PDOException $e){
+                        echo $e->getMessage();
+                    }
                 }
-                $query = "UPDATE nurse SET Username = :Username, Password = :Password, Email = :Email, Address = :Address, PhoneNumber = :phoneNumber, CIN = :CIN WHERE NurseId = :userID ";
-                $stmt = $this->_connection->prepare($query);
-                $name = $nurse->getName();
-                $stmt->bindParam(':Username', $name);
-                $password = $nurse->getPassword();
-                $stmt->bindParam(':Password', $password);
-                $email = $nurse->getEmail();
-                $stmt->bindParam(':Email', $email);
-                $address = $nurse->getAddress();
-                $stmt->bindParam(':Address', $address);
-                $phoneNumber = $nurse->getPhoneNumber();
-                $stmt->bindParam(':phoneNumber', $phoneNumber);
-                $CIN = $nurse->getCIN();
-                $stmt->bindParam(':CIN', $CIN);
-                $userID = $nurse->getUserID();
-                $stmt->bindParam(':userID', $userID);
-
-                $stmt->execute();
+                else{
+                    throw new Exception("Not an instance of Nurse");
+                }
             }
-            catch(PDOException $e){
-                echo $e->getMessage();
-            }
-        }
-        else{
-            throw new Exception("Not an instance of Nurse");
-        }
 
-    }
+
+
     public function deleteNurse($id){
         try{
             $query = "DELETE FROM nurse WHERE NurseId = :id";

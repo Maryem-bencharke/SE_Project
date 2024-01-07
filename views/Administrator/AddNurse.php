@@ -49,9 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php endif; ?>
 
     <div class="container">
-    <!-- Form for adding nurse -->
+    <!-- Form for adding doctor -->
     <form action="addNurse.php" method="post">
-        <!-- Input fields for nurse details -->
+        <!-- Input fields for doctor details -->
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" class="form-control" name="username" id="username" required>
@@ -83,6 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <button type="submit" class="btn btn-primary">Add Nurse</button>
+        <!-- Back to Dashboard Button -->
+        <a href="./nurses.php" class="btn btn-secondary mt-3">Back to Nurses</a>
     </form>
 </div>
 

@@ -1,6 +1,6 @@
 <?php
 require_once "../../classes/Administrator/AdministratorDAOImpl.php";
-
+require_once "../../classes/Administrator/Administrator.php";
 // check if the user is logged in
 session_start();
 if (!isset($_SESSION["userID"])) {
@@ -52,7 +52,6 @@ if ($_SESSION["role"] != "administrator") {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <!-- <button type="button" class="btn btn-danger">Logout</button> -->
                             <a href="../../logout.php" class="btn btn-danger btn-block">Logout</a>
                         </div>
                         </div>
@@ -63,17 +62,41 @@ if ($_SESSION["role"] != "administrator") {
         </nav>
     </header>
     <main class="container">
-        <h3>Add New Administrator</h3>
-        <form action="addAdministrator.php" method="post">
-            <!-- Input fields for administrator details -->
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="email" name="email" placeholder="Email">
-            <input type="text" name="phoneNumber" placeholder="Phone Number">
-            <input type="text" name="address" placeholder="Address">
-            <input type="text" name="CIN" placeholder="CIN" required>
-            <button type="submit">Add Administrator</button>
-        </form>
+        <h3>Manage Administrators</h3>
+        <div class="actions mb-3">
+            <a href="addAdministrator.php" class="btn btn-primary">Add New Administrator</a>
+        </div>
+        <table id="administrators" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>CIN</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $adminDAO = new AdministratorDAOImpl();
+                    $administrators = $adminDAO->getAllAdministrators(); 
+                    // Inside your foreach loop
+                    foreach ($administrators as $admin) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($admin->getCIN()) . "</td>";
+                        echo "<td>" . htmlspecialchars($admin->getName()) . "</td>";
+                        echo "<td>" . htmlspecialchars($admin->getEmail()) . "</td>";
+                        echo "<td>" . htmlspecialchars($admin->getPhoneNumber()) . "</td>";
+                        echo "<td>" . htmlspecialchars($admin->getAddress()) . "</td>";
+                        // Edit link
+                        echo "<td><a href='updateAdministrator.php?adminID=" . $admin->getUserID() . "' class='btn btn-primary btn-sm'>Edit</a>";                      
+                         echo "<a href='deleteAdministrator.php?adminID=" . $admin->getUserID() . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this administrator?\");'>Delete</a></td>";
+                        echo "</tr>";
+                    }                
+
+                ?>
+            </tbody>
+        </table>
     </main>
     <!-- JavaScript for handling actions -->
     <script src="../../js/Administrator/Administrator.js"></script>

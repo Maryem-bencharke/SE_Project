@@ -1,5 +1,8 @@
 <?php
 require_once "../../classes/Nurse/NurseDAOImpl.php";
+require_once "../../classes/Nurse/Nurse.php";
+// require_once "../../classes/Administrator/AdministratorDAOImpl.php";
+// require_once "../../classes/Administrator/Administrator.php";
 
 // check if the user is logged in
 session_start();
@@ -65,7 +68,8 @@ if ($_SESSION["role"] != "administrator") {
     <main class="container">
         <h3>Manage Nurses</h3>
         <div class="actions mb-3">
-            <button class="btn btn-success" onclick="addNurse()">Add New Nurse</button>
+            <a href="addNurse.php" class="btn btn-primary">Add New Nurse</a>
+
         </div>
         <table id="nurses" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
@@ -90,10 +94,9 @@ if ($_SESSION["role"] != "administrator") {
                         echo "<td>" . $nurse->getEmail() . "</td>";
                         echo "<td>" . $nurse->getPhoneNumber() . "</td>";
                         echo "<td>" . $nurse->getAddress() . "</td>";             
-                        echo "<td>
-                                <button onclick='editNurse(\"" . $nurse->getCIN() . "\")' class='btn btn-primary btn-sm'>Edit</button>
-                                <button onclick='deleteNurse(\"" . $nurse->getCIN() . "\")' class='btn btn-danger btn-sm'>Delete</button>
-                              </td>";
+                        // Edit link
+                        echo "<td><a href='UpdateNurse.php?nurseID=" . $nurse->getUserID() . "' class='btn btn-primary btn-sm'>Edit</a>";                      
+                         echo "<a href='deleteNurse.php?adminID=" . $nurse->getUserID() . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this administrator?\");'>Delete</a></td>";
                         echo "</tr>";
                     }
                 ?>
