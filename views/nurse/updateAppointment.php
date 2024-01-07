@@ -25,9 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $appointmentId = $_POST['appointmentId'];
     $appointmentDate = $_POST['appointmentDate'];
     $appointmentStatus = $_POST['appointmentStatus'];
-    $doctorId = $_POST['doctorId'];
-    $nurseId = $_POST['nurseId'];
-    $patientId = $_POST['patientId'];
+    $doctorCIN = $_POST['doctorId'];
+    $nurseId = $_SESSION["userID"];
+    $patientCIN = $_POST['patientId'];
+    $patientDao = new PatientDAOImpl();
+    $patientId = $patientDao->getPatientByCIN($patientCIN)->getPatientID();
+    $doctorDao = new DoctorDAOImpl();
+    $doctorId = $doctorDao->getDoctorByCIN($doctorCIN)->getUserID();
 
     $updatedAppointment = new Appointment($appointmentId, $appointmentDate, $appointmentStatus, $doctorId, $nurseId, $patientId);
 
@@ -68,9 +72,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a class="navbar-brand text12">Hospital management system</a>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./dashboard.php">Dashboard</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./dashboard.php">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./appointments.php">Appointments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./patients.php">Patients</a>
+                        </li>
                     </ul>
                 </div>
                 
@@ -112,9 +122,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $doctorID = $appointment->getDoctorId();
                     $doctor = $doctorDao->getDoctorById($doctorID);
                     $doctorCIN = $doctor->getCIN();
-                    $nurseId    = $appointment->getNurseId();
-                    $nurse = $nurseDao->getNurseById($nurseId);
-                    $nurseCIN = $nurse->getCIN();
                     $patientId = $appointment->getPatientId();
                     $patient = $patientDao->getPatientById($patientId);
                     $patientCIN = $patient->getCIN();
@@ -124,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="hidden" name="appointmentId" value="<?php echo htmlspecialchars($appointment->getAppointmentId()); ?>">
                         <div class="mb-3">
                             <label for="appointmentDate" class="form-label">Appointment Date:</label>
-                            <input type="text" class="form-control" name="appointmentDate" id="appointmentDate" value="<?php echo htmlspecialchars($appointment->getAppointmentDate()); ?>">
+                            <input type="datetime-local" class="form-control" name="appointmentDate" id="appointmentDate" value="<?php echo htmlspecialchars($appointment->getAppointmentDate()); ?>">
                         </div>
 
                         <div class="mb-3">
@@ -137,10 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="text" class="form-control" name="doctorId" id="doctorId" value="<?php echo htmlspecialchars($doctorCIN); ?>">
                         </div>
 
-                        <div class="mb-3">
-                            <label for="nurseId" class="form-label">Nurse CIN:</label>
-                            <input type="text" class="form-control" name="nurseId" id="nurseId" value="<?php echo htmlspecialchars($nurseCIN); ?>">
-                        </div>
+
 
                         <div class="mb-3">
                             <label for="patientId" class="form-label">Patient CIN:</label>
@@ -157,8 +161,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
         </div>
     </main>
-
-    <!-- Your existing HTML code for footer and other scripts -->
 
 </body>
 

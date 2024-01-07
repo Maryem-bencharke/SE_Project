@@ -51,9 +51,15 @@ if (isset($_SESSION["message"])){
                 <a class="navbar-brand text12">Hospital management system</a>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./dashboard.php">Dashboard</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./dashboard.php">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./appointments.php">Appointments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./patients.php">Patients</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarText">

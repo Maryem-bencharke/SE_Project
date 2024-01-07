@@ -83,6 +83,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <li class="nav-item">
                             <a class="nav-link" href="./dashboard.php">Dashboard</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./appointments.php">Appointments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./patients.php">Patients</a>
+                        </li>
                     </ul>
                 </div>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logout">Logout</button>
@@ -126,14 +132,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="mb-3">
                     <label for="birthdate" class="form-label">BirthDate:</label>
-                    <input type="text" class="form-control" name="birthdate" id="birthdate" value="" required> 
+                    <input type="date" class="form-control" name="birthdate" id="birthdate" value="" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="gender" class="form-label">Gender:</label>
                     <select class="form-select" name="gender" id="gender">
-                        <option value="male"></option>
-                        <option value="female"></option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
                     </select>
                 </div>
 
@@ -150,14 +156,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="mb-3">
                     <label for="bloodgroup" class="form-label">Blood Group:</label>
                     <select class="form-select" name="bloodgroup" id="bloodgroup">
-                        <option value="A+"></option>
-                        <option value="A-"></option>
-                        <option value="B+"></option>
-                        <option value="B-"></option>
-                        <option value="AB+"></option>
-                        <option value="AB-"></option>
-                        <option value="O+"></option>
-                        <option value="O-"></option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
                     </select>
                 </div>
 

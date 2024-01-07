@@ -5,11 +5,16 @@ if(!isset($_SESSION["userID"])){
     header("Location: ../../index.php");
     exit();
 }
-// check: if the user is a doctor
-if($_SESSION["role"] != "doctor"){
+// check if the user is an administrator
+if($_SESSION["role"] != "administrator"){
     header("Location: ../../index.php");
     exit();
 }
+
+require_once '../../db/db.php';
+require_once '../../classes/AdministratorDAOImpl.php';
+
+$adminDao = new AdministratorDAOImpl();
 
 ?>
 <!DOCTYPE html>
@@ -18,12 +23,12 @@ if($_SESSION["role"] != "doctor"){
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <title>Hospital</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <title>Administrator Dashboard - Hospital</title>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
             <div class="container">
                 <a class="navbar-brand text12">Hospital management system</a>
                 <div class="collapse navbar-collapse" id="navbarText">
@@ -38,7 +43,7 @@ if($_SESSION["role"] != "doctor"){
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="logoutLabel">logout</h5>
+                            <h5 class="modal-title" id="logoutLabel">Modal title</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -46,6 +51,7 @@ if($_SESSION["role"] != "doctor"){
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <!-- <button type="button" class="btn btn-danger">Logout</button> -->
                             <a href="../../logout.php" class="btn btn-danger btn-block">Logout</a>
                         </div>
                         </div>
@@ -54,27 +60,19 @@ if($_SESSION["role"] != "doctor"){
                
             </div>
         </nav>
-    </header>
-    <main>
-        <div> 
-            <h3> Welcome <?php echo $_SESSION["USER_NAME"]; ?></h3>
+        </header>
+    <main class="container">
+        <h3>Welcome, <?php echo $_SESSION["USER_NAME"]; ?></h3>
+        <div class="dashboard-section">
+            <h4>Manage Users</h4>
+            <a href="doctors.php" class="btn btn-primary">Manage Doctors</a>
+            <a href="nurses.php" class="btn btn-primary">Manage Nurses</a>
+            <a href="administrators.php" class="btn btn-primary">Manage Administrators</a>
         </div>
-
-        <div class="container">
-            <div class="row">
-
-
-                <div class="col-6">
-                    <h4>Patients</h4>
-                    <a href="patients.php" class="btn btn-primary" >View patient record management</a>
-                </div>
-                <div class="col-6">
-                    <h4>Appointments</h4>
-                    <a href="appointments.php" class="btn btn-primary" >Get appointment per day</a>
-                </div>
-                
-            </div>
-        </div>
+        <!-- <div class="dashboard-section">
+            <h4>Reports</h4>
+            <a href="generate_reports.php" class="btn btn-primary">Generate Reports</a>
+        </div> -->
     </main>
 </body>
 </html>

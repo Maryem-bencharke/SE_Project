@@ -57,6 +57,12 @@ if (isset($_SESSION["success_message_appointment"])){
                     <li class="nav-item">
                         <a class="nav-link" href="./dashboard.php">Dashboard</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./appointments.php">Appointments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./patients.php">Patients</a>
+                    </li>
                 </ul>
             </div>
             <div class="collapse navbar-collapse" id="navbarText">
