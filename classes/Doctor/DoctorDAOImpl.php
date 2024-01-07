@@ -148,8 +148,8 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
                     $doctor['Username'],
                     $doctor['Password'], 
                     $doctor['Email'],
-                    $doctor['PhoneNumber'],
                     $doctor['Address'],
+                    $doctor['PhoneNumber'],
                     $doctor['CIN']
                 );
             }
@@ -172,8 +172,8 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
                     $result['Username'],
                     $result['Password'], 
                     $result['Email'],
-                    $result['PhoneNumber'],
                     $result['Address'],
+                    $result['PhoneNumber'],
                     $result['CIN']
                 );
                 return $doctor;
@@ -200,8 +200,8 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
                     $result['Username'],
                     $result['Password'], 
                     $result['Email'],
-                    $result['PhoneNumber'],
                     $result['Address'],
+                    $result['PhoneNumber'],
                     $result['CIN']
                 );
                 return $doctor;
