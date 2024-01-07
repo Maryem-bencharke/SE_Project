@@ -125,8 +125,8 @@ class AdministratorDAOImpl extends AbstractDAO implements AdministratorDAO {
                         $row['Username'],
                         $row['Password'],
                         $row['Email'],
-                        $row['PhoneNumber'],
                         $row['Address'],
+                        $row['PhoneNumber'],
                         $row['CIN']
                     );
                     array_push($administrators, $administrator);

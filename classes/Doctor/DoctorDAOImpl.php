@@ -148,8 +148,8 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
                     $doctor['Username'],
                     $doctor['Password'], 
                     $doctor['Email'],
-                    $doctor['PhoneNumber'],
                     $doctor['Address'],
+                    $doctor['PhoneNumber'],
                     $doctor['CIN']
                 );
             }
