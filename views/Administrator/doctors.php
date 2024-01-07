@@ -87,8 +87,9 @@ if ($_SESSION["role"] != "administrator") {
                         echo "<td>" . htmlspecialchars($doctor->getCIN()) . "</td>";
                         echo "<td>" . htmlspecialchars($doctor->getName()) . "</td>";
                         echo "<td>" . htmlspecialchars($doctor->getEmail()) . "</td>";
-                        echo "<td>" . htmlspecialchars($doctor->getAddress()) . "</td>";
                         echo "<td>" . htmlspecialchars($doctor->getPhoneNumber()) . "</td>";
+
+                        echo "<td>" . htmlspecialchars($doctor->getAddress()) . "</td>";
                         // Edit link
                         echo "<td><a href='updateDoctor.php?doctorID=" . $doctor->getUserID() . "' class='btn btn-primary btn-sm'>Edit</a>";                      
                          echo "<a href='deleteDoctor.php?doctorID=" . $doctor->getUserID() . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this doctor?\");'>Delete</a></td>";

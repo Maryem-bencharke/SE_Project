@@ -37,14 +37,7 @@ if (isset($_SESSION["message"])){
     <title>Hospital</title>
 </head>
 <body>
-        <?php if (!empty($successMessage)): ?>
-        <div class="container mt-4">
 
-            <div class="alert alert-success" role="alert">
-                <?php echo $successMessage; ?>
-            </div>
-        </div>
-        <?php endif; ?>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
             <div class="container">
@@ -95,7 +88,14 @@ if (isset($_SESSION["message"])){
     </header>
     <main>
         <!-- add patient -->
+        <?php if (!empty($successMessage)): ?>
+            <div class="container mt-4">
 
+                <div class="alert alert-success" role="alert">
+                    <?php echo $successMessage; ?>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class ="m-4">
             <table id ="patients" class ="table table-striped table-bordered table-sm" cellspacing="0" width = "100%">
                 <thead>

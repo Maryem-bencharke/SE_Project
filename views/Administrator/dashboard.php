@@ -63,13 +63,39 @@ require_once "../../classes/Administrator/AdministratorDAOImpl.php";
             </div>
         </nav>
         </header>
-        <main class="container">
-    <h3>Welcome, <?php echo $_SESSION["USER_NAME"]; ?></h3>
-    <div class="dashboard-section">
-        <a href="doctors.php" class="btn btn-primary">Manage Doctors</a>
-        <a href="nurses.php" class="btn btn-primary">Manage Nurses</a>
-        <a href="administrators.php" class="btn btn-primary">Manage Administrators</a>
-    </div>
+
+            <main class="container mt-5">
+                <div class="mb-3">
+                    <h3>Welcome <?php echo $_SESSION["USER_NAME"]; ?></h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Doctors</h4>
+                                <!-- Button to show all the patients -->
+                                <a href="doctors.php" class="btn btn-primary">Manage Doctors</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Nurses</h4>
+                                <a href="nurses.php" class="btn btn-primary">Manage Nurses</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Administrators</h4>
+                                <a href="administrators.php" class="btn btn-primary">Manage Administrators</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 </main>
 </body>
 </html>

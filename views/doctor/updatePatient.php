@@ -107,7 +107,7 @@ if ($patientID) {
         </div>
         <div class="mb-3">
             <label for="bloodgroup" class="form-label">BloodGroup:</label>
-            <input type="text" class="form-control" name="bloodgroup" id="bloodgroup" value="<?php echo htmlspecialchars($patient->getBloodGroup()); ?>" required>
+            <input type="text" class="form-control" name="bloodgroup" id="bloodgroup" value="<?php echo htmlspecialchars($patient->getBloodGroup()); ?>" >
         </div>
         <div class="mb-3">
             <label for="address" class="form-label">Address:</label>
@@ -115,15 +115,15 @@ if ($patientID) {
         </div>
         <div class="mb-3">
             <label for="allergies" class="form-label">Allergies:</label>
-            <input type="text" class="form-control" name="allergies" id="allergies" value="<?php echo htmlspecialchars($patient->getAllergies()); ?>" required>
+            <input type="text" class="form-control" name="allergies" id="allergies" value="<?php echo htmlspecialchars($patient->getAllergies()); ?>" >
         </div>
         <div class="mb-3">
             <label for="InsuranceInfo" class="form-label">InsuranceInfo:</label>
-            <input type="text" class="form-control" name="InsuranceInfo" id="InsuranceInfo" value="<?php echo htmlspecialchars($patient->getInsuranceInfo()); ?>" required>
+            <input type="text" class="form-control" name="InsuranceInfo" id="InsuranceInfo" value="<?php echo htmlspecialchars($patient->getInsuranceInfo()); ?>" >
         </div>
         <div class="mb-3">
             <label for="EmergencyContactName" class="form-label">EmergencyContactName:</label>
-            <input type="text" class="form-control" name="EmergencyContactName" id="EmergencyContactName" value="<?php echo htmlspecialchars($patient->getEmergencyContactName()); ?>" required>
+            <input type="text" class="form-control" name="EmergencyContactName" id="EmergencyContactName" value="<?php echo htmlspecialchars($patient->getEmergencyContactName()); ?>" >
         </div>
         <div class="mb-3">
             <label for="EmergencyContactPhone" class="form-label">EmergencyContactPhone:</label>
@@ -131,23 +131,23 @@ if ($patientID) {
         </div>
         <div class="mb-3">
             <label for="EmergencyContactEmail" class="form-label">EmergencyContactEmail:</label>
-            <input type="text" class="form-control" name="EmergencyContactEmail" id="EmergencyContactEmail" value="<?php echo htmlspecialchars($patient->getEmergencyContactEmail()); ?>" required>
+            <input type="text" class="form-control" name="EmergencyContactEmail" id="EmergencyContactEmail" value="<?php echo htmlspecialchars($patient->getEmergencyContactEmail()); ?>" >
         </div>
         <div class="mb-3">
             <label for="EmergencyContactAddress" class="form-label">EmergencyContactAddress:</label>
-            <input type="text" class="form-control" name="EmergencyContactAddress" id="EmergencyContactAddress" value="<?php echo htmlspecialchars($patient->getEmergencyContactAddress()); ?>" required>
+            <input type="text" class="form-control" name="EmergencyContactAddress" id="EmergencyContactAddress" value="<?php echo htmlspecialchars($patient->getEmergencyContactAddress()); ?>" >
         </div>
         <div class="mb-3">
             <label for="EmergencyContactRelation" class="form-label">EmergencyContactRelation:</label>
-            <input type="text" class="form-control" name="EmergencyContactRelation" id="EmergencyContactRelation" value="<?php echo htmlspecialchars($patient->getEmergencyContactRelation()); ?>" required>
+            <input type="text" class="form-control" name="EmergencyContactRelation" id="EmergencyContactRelation" value="<?php echo htmlspecialchars($patient->getEmergencyContactRelation()); ?>" >
         </div>
         <div class="mb-3">
             <label for="EmergencyContactBloodGroup" class="form-label">EmergencyContactBloodGroup:</label>
-            <input type="text" class="form-control" name="EmergencyContactBloodGroup" id="EmergencyContactBloodGroup" value="<?php echo htmlspecialchars($patient->getEmergencyContactBloodGroup()); ?>" required>
+            <input type="text" class="form-control" name="EmergencyContactBloodGroup" id="EmergencyContactBloodGroup" value="<?php echo htmlspecialchars($patient->getEmergencyContactBloodGroup()); ?>" >
         </div>
         <div class="mb-3">
             <label for="EmergencyContactCIN" class="form-label">EmergencyContactCIN:</label>
-            <input type="text" class="form-control" name="EmergencyContactCIN" id="EmergencyContactCIN" value="<?php echo htmlspecialchars($patient->getEmergencyContactCIN()); ?>" required>
+            <input type="text" class="form-control" name="EmergencyContactCIN" id="EmergencyContactCIN" value="<?php echo htmlspecialchars($patient->getEmergencyContactCIN()); ?>" >
         </div>
 
 

@@ -26,7 +26,13 @@
     <title>Hospital</title>
 </head>
 <body>
-    
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <div class="container">
+            <a class="navbar-brand text12">Hospital management system</a>
+        </div>
+    </nav>
+</header>
         <?php
             $database = Db::getInstance();
 

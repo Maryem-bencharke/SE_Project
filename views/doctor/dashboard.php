@@ -55,25 +55,30 @@ if($_SESSION["role"] != "doctor"){
             </div>
         </nav>
     </header>
-    <main>
-        <div> 
+    <main  class="container mt-5">
+
+        <div class="mb-3">
             <h3> Welcome <?php echo $_SESSION["USER_NAME"]; ?></h3>
         </div>
-
-        <div class="container">
-            <div class="row">
-
-
-                <div class="col-6">
-                    <h4>Patients</h4>
-                    <a href="patients.php" class="btn btn-primary" >View patient record management</a>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Patients</h4>
+                        <!-- Button to show all the patients -->
+                        <a href="patients.php" class="btn btn-primary" >View patient record management</a>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <h4>Appointments</h4>
-                    <a href="appointments.php" class="btn btn-primary" >Get appointment per day</a>
-                </div>
-                
             </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Appointments</h4>
+                        <a href="appointments.php" class="btn btn-primary" >Get appointment</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 </body>

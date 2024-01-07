@@ -41,14 +41,7 @@ if (isset($_SESSION["success_message_appointment"])){
 </head>
 <body>
 <header>
-<?php if (!empty($successMessage)): ?>
-        <div class="container mt-4">
 
-            <div class="alert alert-success" role="alert">
-                <?php echo $successMessage; ?>
-            </div>
-        </div>
-        <?php endif; ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <div class="container">
             <a class="navbar-brand text12">Hospital management system</a>
@@ -96,6 +89,14 @@ if (isset($_SESSION["success_message_appointment"])){
     </nav>
 </header>
 <main>
+    <?php if (!empty($successMessage)): ?>
+        <div class="container mt-4">
+
+            <div class="alert alert-success" role="alert">
+                <?php echo $successMessage; ?>
+            </div>
+        </div>
+    <?php endif; ?>
     <div class ="m-4">
         <table id ="patients" class ="table table-striped table-bordered table-sm" cellspacing="0" width = "100%">
             <thead>
