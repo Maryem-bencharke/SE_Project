@@ -5,7 +5,16 @@ The Hospital Patient Archive Management Platform is a comprehensive digital syst
 ## Getting Started 
 ### Prerequisites: 
 
-WAMP Server
+Before you begin, ensure you have the following installed on your system:
+
+WAMP Server: This package contains Apache, MySQL, and PHP, essential for running the platform locally.
+### Configuration
+
+### Database Setup
+The platform uses a MySQL database. The connection details are set in the PHP class Db (db/db.php). You will need to adjust these settings according to your local environment.
+
+### Modify Connection Details:
+In the Db class (db/db.php) , you will find variables for host, username, password, and database name. Adjust these to match your local MySQL setup.
 
 ## Usage  
 ### Dashboard  
