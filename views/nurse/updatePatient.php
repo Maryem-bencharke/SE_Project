@@ -71,9 +71,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a class="navbar-brand text12">Hospital management system</a>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./dashboard.php">Dashboard</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./dashboard.php">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./appointments.php">Appointments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./patients.php">Patients</a>
+                        </li>
                     </ul>
                 </div>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logout">Logout</button>
@@ -128,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="mb-3">
                 <label for="birthdate" class="form-label">BirthDate:</label>
-                <input type="text" class="form-control" name="birthdate" id="birthdate" value="<?php echo htmlspecialchars($patient->getBirthDate()); ?>" >
+                <input type="date" class="form-control" name="birthdate" id="birthdate" value="<?php echo htmlspecialchars($patient->getBirthDate()); ?>" >
             </div>
             <div class="mb-3">
                 <label for="gender" class="form-label">Gender:</label>

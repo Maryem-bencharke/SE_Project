@@ -28,9 +28,15 @@ if($_SESSION["role"] != "nurse"){
                 <a class="navbar-brand text12">Hospital management system</a>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./dashboard.php">Dashboard</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./dashboard.php">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./appointments.php">Appointments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./patients.php">Patients</a>
+                        </li>
                     </ul>
                 </div>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logout">Logout</button>
@@ -38,7 +44,7 @@ if($_SESSION["role"] != "nurse"){
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="logoutLabel">Modal title</h5>
+                            <h5 class="modal-title" id="logoutLabel">logout</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">

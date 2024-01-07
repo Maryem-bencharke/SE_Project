@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $appointmentDate = $_POST['appointmentDate'];
     $appointmentStatus = $_POST['appointmentStatus'];
     $doctorCIN = $_POST['doctorId'];
-    $nurseCIN = $_POST['nurseId'];
     $patientCIN = $_POST['patientId'];
     $doctorDao = new DoctorDaoImpl();
     $doctor = $doctorDao->getDoctorByCIN($doctorCIN);
@@ -27,15 +26,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $success = false;
         $doctorerror = true;
     }
-    $patientDao = new PatientDaoImpl();
-    $patient = $patientDao->getPatientByCIN($patientCIN);
-    $patientId = $patient->getPatientID();
-    $nurseDao = new NurseDaoImpl();
-    $nurse = $nurseDao->getNurseByCIN($nurseCIN);
-    $nurseId = $nurse->getUserId();
-    $appointmentDao = new AppointmentDaoImpl();
-    $newAppointment = new Appointment(null, $appointmentDate, $appointmentStatus, $doctorId, $nurseId, $patientId);
-    $success = $appointmentDao->addAppointment($newAppointment);
+
+        $patientDao = new PatientDaoImpl();
+        $patient = $patientDao->getPatientByCIN($patientCIN);
+        $patientId = $patient->getPatientID();
+        $nurseDao = new NurseDaoImpl();
+        $nurseId = $_SESSION["userID"];
+        $appointmentDao = new AppointmentDaoImpl();
+        $newAppointment = new Appointment(null, $appointmentDate, $appointmentStatus, $doctorId, $nurseId, $patientId);
+        $success = $appointmentDao->addAppointment($newAppointment);
+
+
+
     if ($success) {
         $_SESSION['success_message'] = "Appointment added successfully.";
         header("Location: ./appointments.php");
@@ -75,6 +77,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <li class="nav-item">
                             <a class="nav-link" href="./dashboard.php">Dashboard</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./appointments.php">Appointments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./patients.php">Patients</a>
+                        </li>
                     </ul>
                 </div>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logout">Logout</button>
@@ -103,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form action="addAppointment.php" method="post">
                 <div class="mb-3">
                     <label for="appointmentDate" class="form-label">Appointment Date:</label>
-                    <input type="date" class="form-control" name="appointmentDate" id="appointmentDate" value="" required>
+                    <input type="datetime-local" class="form-control" name="appointmentDate" id="appointmentDate" value="" required>
                 </div>
 
                 <div class="mb-3">
@@ -116,10 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="text" class="form-control" name="doctorId" id="doctorId" value="" required>
                 </div>
 
-                <div class="mb-3">
-                    <label for="nurseId" class="form-label">Nurse CIN:</label>
-                    <input type="text" class="form-control" name="nurseId" id="nurseId" value=""required>
-                </div>
+
 
                 <div class="mb-3">
                     <label for="patientId" class="form-label">Patient CIN:</label>
