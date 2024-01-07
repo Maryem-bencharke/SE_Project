@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = htmlspecialchars($_POST['address']);
     $CIN = htmlspecialchars($_POST['CIN']);
 
-    $doctor = new Doctor(null, $username, $password, $email, $phoneNumber,$address, $CIN);
+    $doctor = new Doctor(null, $username, $password, $email, $address,$phoneNumber, $CIN);
     $doctorDao = new DoctorDAOImpl();
 
     try {
@@ -69,14 +69,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control" name="address" id="address">
+        </div>
+        <div class="form-group">
             <label for="phoneNumber">Phone Number:</label>
             <input type="text" class="form-control" name="phoneNumber" id="phoneNumber">
         </div>
 
-        <div class="form-group">
-            <label for="address">Address:</label>
-            <input type="text" class="form-control" name="address" id="address">
-        </div>
 
         <div class="form-group">
             <label for="CIN">CIN:</label>
