@@ -1,61 +1,10 @@
 @startuml
 title Classes - Hospital Patient Archive Management
 
-abstract class User {
-  - Int UserID
-  - string name
-  - string Password 
-  - string email
-  - string address
-  - string phoneNumber
-  - string CIN
-}
-
+' Common Enums
 enum Gender {
   F
   M
-}
-
-class Doctor {
-  searchPatient()
-  updatePatient()
-}
-
-class Nurse {
-  searchPatient()
-  updatePatient()
-  createPatient()
-  addAppointments()
-  cancelAppointments()
-  verifyInsurance()
-}
-
-class Administrator {
-  createDoctor()
-  createNurse()
-  deleteDoctor()
-  deleteNurse()
-}
-
-class Patient {
-  - int patientID
-  - string CIN
-  - datetime birthDate
-  - string firstName
-  - string lastName
-  - string insuranceInfo
-  - string address
-  - string phoneNumber
-  - string email
-  - string emergencyContact
-  - BloodGroup bloodGroup
-  - string allergies
-  - string emergencyContactName
-  - string emergencyContactPhone
-  - string emergencyContactEmail
-  - string emergencyContactAddress
-  - string emergencyContactRelation
-  - BloodGroup emergencyContactBloodGroup
 }
 
 enum BloodGroup {
@@ -69,117 +18,182 @@ enum BloodGroup {
   O_MINUS
 }
 
-class Appointment {
-  - int appointmentId
-  - datetime appointmentDate
-  - status appointmentStatus
-}
-
 enum status {
   confirmed
   canceled
 }
 
-class MedicalRecord {
-  - int recordId
-  - datetime dateCreated
-  - string treatmentPlan
-  - string testResults
-  - blob imageData
+' Abstract User class
+abstract class User {
+  - Int UserID
+  - string name
+  - string Password 
+  - string email
+  - string address
+  - string phoneNumber
+  - string CIN
 }
 
-' DAO Interfaces and Implementations
-interface PatientDAO {
-  createPatient()
-  getPatient()
-  updatePatient()
-  deletePatient()
-  getPatients()
+' Doctor package
+package "Doctor Package" {
+  class Doctor {
+    searchPatient()
+    updatePatient()
+  }
+
+  interface DoctorDAO {
+    createDoctor()
+    findDoctor()
+    updateDoctor()
+    deleteDoctor()
+  }
+  Doctor -- DoctorDAO
+
+  class DoctorDAOImpl implements DoctorDAO {
+    // Implementation of DoctorDAO methods
+  }
+
+  User <|-- Doctor 
 }
 
-class PatientDAOImpl implements PatientDAO {
-  // Implementation of PatientDAO methods
+' Nurse package
+package "Nurse Package" {
+  class Nurse {
+    searchPatient()
+    updatePatient()
+    createPatient()
+    addAppointments()
+    cancelAppointments()
+    verifyInsurance()
+  }
+
+  interface NurseDAO {
+    createNurse()
+    findNurse()
+    updateNurse()
+    deleteNurse()
+  }
+  Nurse -- NurseDAO
+
+  class NurseDAOImpl implements NurseDAO {
+    // Implementation of NurseDAO methods
+  }
+
+  User <|-- Nurse 
 }
 
-interface DoctorDAO {
-  createDoctor()
-  findDoctor()
-  updateDoctor()
-  deleteDoctor()
+' Administrator package
+package "Administrator Package" {
+  class Administrator {
+    createDoctor()
+    createNurse()
+    deleteDoctor()
+    deleteNurse()
+  }
+
+  interface AdministratorDAO {
+    createAdministrator()
+    updateAdministrator()
+    deleteAdministrator()
+  }
+  Administrator -- AdministratorDAO
+
+  class AdministratorDAOImpl implements AdministratorDAO {
+    // Implementation of AdministratorDAO methods
+  }
+
+  User <|-- Administrator 
 }
 
-class DoctorDAOImpl implements DoctorDAO {
-  // Implementation of DoctorDAO methods
+' Patient package
+package "Patient Package" {
+  class Patient {
+    - int patientID
+    - string CIN
+    - datetime birthDate
+    - string firstName
+    - string lastName
+    - string insuranceInfo
+    - string address
+    - string phoneNumber
+    - string email
+    - string emergencyContact
+    - BloodGroup bloodGroup
+    - string allergies
+    - string emergencyContactName
+    - string emergencyContactPhone
+    - string emergencyContactEmail
+    - string emergencyContactAddress
+    - string emergencyContactRelation
+    - BloodGroup emergencyContactBloodGroup
+  }
+
+  interface PatientDAO {
+    createPatient()
+    getPatient()
+    updatePatient()
+    deletePatient()
+    getPatients()
+  }
+  Patient -- PatientDAO
+
+
+  class PatientDAOImpl implements PatientDAO {
+    // Implementation of PatientDAO methods
+  }
 }
 
-interface NurseDAO {
-  createNurse()
-  findNurse()
-  updateNurse()
-  deleteNurse()
+' Appointment package
+package "Appointment Package" {
+  class Appointment {
+    - int appointmentId
+    - datetime appointmentDate
+    - status appointmentStatus
+  }
+
+  interface AppointmentDAO {
+    createAppointment()
+    readAppointment()
+    updateAppointment()
+    deleteAppointment()
+  }
+  Appointment -- AppointmentDAO
+
+  class AppointmentDAOImpl implements AppointmentDAO {
+    // Implementation of AppointmentDAO methods
+  }
+
+  Patient "1" - "0..*" Appointment
 }
 
-class NurseDAOImpl implements NurseDAO {
-  // Implementation of NurseDAO methods
+' Medical Record package
+package "Medical Record Package" {
+  class MedicalRecord {
+    - int recordId
+    - datetime dateCreated
+    - string treatmentPlan
+    - string testResults
+    - blob imageData
+  }
+
+  interface MedicalRecordDAO {
+    createMedicalRecord()
+    readMedicalRecord()
+    updateMedicalRecord()
+    deleteMedicalRecord()
+  }
+ MedicalRecord -- MedicalRecordDAO
+
+  class MedicalRecordDAOImpl implements MedicalRecordDAO {
+    // Implementation of MedicalRecordDAO methods
+  }
+
+  Patient "1" o-- "0..*" MedicalRecord
 }
 
-interface AdministratorDAO {
-  createAdministrator()
-  updateAdministrator()
-  deleteAdministrator()
-}
-
-class AdministratorDAOImpl implements AdministratorDAO {
-  // Implementation of AdministratorDAO methods
-}
-
-interface AppointmentDAO {
-  createAppointment()
-  readAppointment()
-  updateAppointment()
-  deleteAppointment()
-}
-
-class AppointmentDAOImpl implements AppointmentDAO {
-  // Implementation of AppointmentDAO methods
-}
-
-interface MedicalRecordDAO {
-  createMedicalRecord()
-  readMedicalRecord()
-  updateMedicalRecord()
-  deleteMedicalRecord()
-}
-
-class MedicalRecordDAOImpl implements MedicalRecordDAO {
-  // Implementation of MedicalRecordDAO methods
-}
-
-' Relationships
-User <|-- Doctor 
-User <|-- Nurse
-User <|-- Administrator
-
-Patient "1" - "0..*" Appointment
-Patient "1" o-- "0..*" MedicalRecord
-Appointment "0..*" - "1" Nurse
-MedicalRecord "0..*" - "1" Doctor
-Appointment "0..*" - "1" Doctor
-
-' DAO Relationships with Classes
-Patient -- PatientDAO
-Doctor -- DoctorDAO
-Nurse -- NurseDAO
-Administrator -- AdministratorDAO
-Appointment -- AppointmentDAO
-MedicalRecord -- MedicalRecordDAO
-
-' DAO Implementations
-PatientDAO ..> PatientDAOImpl
-DoctorDAO ..> DoctorDAOImpl
-NurseDAO ..> NurseDAOImpl
-AdministratorDAO ..> AdministratorDAOImpl
-AppointmentDAO ..> AppointmentDAOImpl
-MedicalRecordDAO ..> MedicalRecordDAOImpl
+' Relationships between packages
+Doctor -- Appointment
+Nurse -- Appointment
+Doctor -- MedicalRecord
 
 @enduml
