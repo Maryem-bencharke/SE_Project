@@ -105,8 +105,8 @@ class NurseDAOImpl extends AbstractDAO implements NurseDAO{
     public function addNurse($nurse){
         if ($nurse instanceof Nurse){
             try{
-                $query = "INSERT INTO nurse (Username, Password, Email, Address, PhoneNumber, CIN) VALUES (:Username, :Password, :Email, :Address, :phoneNumber, :CIN ) 
-                ON DUPLICATE KEY UPDATE Username = :Username, Password = :Password, Email = :Email, Address = :Address, PhoneNumber = :phoneNumber, CIN = :CIN ";
+                $query = "INSERT INTO nurse (Username, Password, Email, , PhoneNumber,Address, CIN) VALUES (:Username, :Password, :Email,  :phoneNumber,:Address, :CIN ) 
+                ON DUPLICATE KEY UPDATE Username = :Username, Password = :Password, Email = :Email,  PhoneNumber = :phoneNumber, Address = :Address,CIN = :CIN ";
                 $stmt = $this->_connection->prepare($query);
                 $name = $nurse->getName();
                 $stmt->bindParam(':Username', $name);
@@ -114,10 +114,11 @@ class NurseDAOImpl extends AbstractDAO implements NurseDAO{
                 $stmt->bindParam(':Password', $Password);
                 $Email = $nurse->getEmail();
                 $stmt->bindParam(':Email', $Email);
-                $Address = $nurse->getAddress();
-                $stmt->bindParam(':Address', $Address);
+        
                 $phoneNumber = $nurse->getPhoneNumber();
                 $stmt->bindParam(':phoneNumber', $phoneNumber);
+                $Address = $nurse->getAddress();
+                $stmt->bindParam(':Address', $Address);
                 $CIN = $nurse->getCIN();
                 $stmt->bindParam(':CIN', $CIN);
                 $stmt->execute();

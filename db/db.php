@@ -3,9 +3,9 @@
     private static $_instance;
 
     private $_connection = null;
-    private $_host = 'localhost';
+    private $_host = '127.0.0.1:3308';
     private $_username = 'root';
-    private $_password = '';
+    private $_password = '123456';
     private $_database = 'hospital';
 
     public function __construct()

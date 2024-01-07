@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = htmlspecialchars($_POST['address']);
     $CIN = htmlspecialchars($_POST['CIN']);
 
-    $doctor = new Doctor(null, $username, $password, $email, $address, $phoneNumber, $CIN);
+    $doctor = new Doctor(null, $username, $password, $email, $phoneNumber,$address, $CIN);
     $doctorDao = new DoctorDAOImpl();
 
     try {

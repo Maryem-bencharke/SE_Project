@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phoneNumber = htmlspecialchars($_POST['phoneNumber']);
     $address = htmlspecialchars($_POST['address']);
     $CIN = htmlspecialchars($_POST['CIN']);
-    $nurse = new Nurse(null, $username, $password, $email, $address, $phoneNumber, $CIN);
+    $nurse = new Nurse(null, $username, $password, $email, $phoneNumber,  $address, $CIN);
     $nurseDao = new NurseDAOImpl();
 
     try {

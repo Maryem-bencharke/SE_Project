@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $CIN = htmlspecialchars($_POST['CIN']);
 
     // Create an Administrator object and use DAO to insert it into the database
-    $administrator = new Administrator(null, $username, $password, $email, $address, $phoneNumber, $CIN);
+    $administrator = new Administrator(null, $username, $password, $email, $phoneNumber, $address, $CIN);
     $adminDao = new AdministratorDAOImpl();
 
     try {
