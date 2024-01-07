@@ -166,8 +166,8 @@ class NurseDAOImpl extends AbstractDAO implements NurseDAO{
                         $row['Username'],
                         $row['Password'],
                         $row['Email'],
-                        $row['PhoneNumber'],
                         $row['Address'],
+                        $row['PhoneNumber'],
                         $row['CIN']
                     );
                     array_push($nurses, $nurse);
