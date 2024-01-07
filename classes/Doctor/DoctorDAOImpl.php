@@ -27,7 +27,7 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
                 $CIN = $doctor->getCIN();
                 try {
 
-                    $sql = "INSERT INTO Doctor (Username, Password, Email, PhoneNumber, Address, CIN) VALUES (:Username, :Password, :Email, :PhoneNumber, :Address, :CIN)";
+                    $sql = "INSERT INTO Doctor (Username, Password, Email, Address , PhoneNumber, CIN) VALUES (:Username, :Password, :Email, :PhoneNumber, :Address, :CIN)";
                     $stmt = $this->_connection->prepare($sql);
                     /*if ($this->_connection === null) {
                         die("Database connection is null.");
@@ -35,8 +35,8 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
                     $stmt->bindParam(":Username", $username, PDO::PARAM_STR);
                     $stmt->bindParam(":Password", $password, PDO::PARAM_STR);
                     $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
-                    $stmt->bindParam(":PhoneNumber", $phoneNumber, PDO::PARAM_STR);
                     $stmt->bindParam(":Address", $address, PDO::PARAM_STR);
+                    $stmt->bindParam(":PhoneNumber", $phoneNumber, PDO::PARAM_STR);
                     $stmt->bindParam(":CIN", $CIN, PDO::PARAM_STR);
 
                     $stmt->execute();
@@ -172,8 +172,8 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
                     $result['Username'],
                     $result['Password'], 
                     $result['Email'],
-                    $result['PhoneNumber'],
                     $result['Address'],
+                    $result['PhoneNumber'],
                     $result['CIN']
                 );
                 return $doctor;
@@ -200,8 +200,8 @@ class DoctorDAOImpl extends AbstractDAO implements DoctorDAO {
                     $result['Username'],
                     $result['Password'], 
                     $result['Email'],
-                    $result['PhoneNumber'],
                     $result['Address'],
+                    $result['PhoneNumber'],
                     $result['CIN']
                 );
                 return $doctor;

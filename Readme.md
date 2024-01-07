@@ -94,13 +94,39 @@ Nurses can schedule new appointments.
 ###   Manage doctors
 Admin can Manage doctors
 
-![Alt text](Demo/manage1.png)
+![Alt text](Demo/image-9.png)
+Admin can Add a new doctor
+![Alt text](Demo/image-10.png)
+Admin can Edit a doctor
+
+![Alt text](Demo/image-1.png)
+
+Admin can delete a doctor
+![Alt text](Demo/image-2.png)
+![Alt text](Demo/image-11.png)
 
 ###   Manage nurses
 Admin can Manage nurses
 
-![Alt text](Demo/manage2.png)
+![Alt text](Demo/image-12.png)
+Admin can Add a new nurse
+![Alt text](Demo/image-13.png)
+Admin can Edit a nurse
+![Alt text](Demo/image-4.png)
+Admin can delete a nurse
+![Alt text](Demo/image-2.png)
+![Alt text](Demo/image-5.png)
+
 ###   Manage admins
 Admin can Manage admins
 
-![Alt text](Demo/manage3.png)
+![Alt text](Demo/image-14.png)
+Admin can add admins
+![Alt text](Demo/image-16.png)
+Admin can Edit admins
+
+
+![Alt text](Demo/image-15.png)
+Admin can delete an admin 
+![Alt text](Demo/image-2.png)
+![Alt text](Demo/image-5.png)
